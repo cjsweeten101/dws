@@ -29,8 +29,10 @@ func move():
 		if $GrappleCast.is_colliding():
 			grapple_point = $GrappleCast.get_collision_point()
 			grappled = true
+			$GrappleSprite.visible = true
 	elif Input.is_action_just_released("action"):
 		grappled = false
+		$GrappleSprite.visible = false
 	
 	if is_on_floor():
 		current_speed.x = lerp(current_speed.x, 0, ground_friction)
@@ -46,5 +48,12 @@ func set_direction():
 		$GrappleCast.rotation_degrees = 150
 
 func reel_in():
-	var grapple_direction = (grapple_point - global_position).normalized()
-	current_speed += grapple_direction*50
+	var grapple_vector = (grapple_point - global_position)
+	current_speed += grapple_vector.normalized()*50
+	draw_grapple_hook(grapple_vector)
+
+func draw_grapple_hook(vect):
+	var size = vect.length()
+	var direction = vect.normalized()
+	$GrappleSprite.rotation_degrees = direction.angle() * 180/PI - 90
+	$GrappleSprite.scale.y = size/($GrappleSprite.texture.get_height())
