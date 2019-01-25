@@ -34,9 +34,8 @@ func move():
 		grappled = false
 		$GrappleSprite.visible = false
 	
-	if is_on_floor():
-		current_speed.x = lerp(current_speed.x, 0, ground_friction)
-	else:
+	current_speed.x = lerp(current_speed.x, 0, ground_friction)
+	if !is_on_floor():
 		current_speed += gravity
 	
 	current_speed = move_and_slide(current_speed, UP)
