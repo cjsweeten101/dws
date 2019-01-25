@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 32, 32 )
+extents = Vector2( 24, 24 )
 
 [node name="Player" type="KinematicBody2D"]
 
@@ -21,8 +21,9 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="PlayerSprite" type="Sprite" parent="." index="0"]
 
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Offset", "Transform" ]
+_sections_unfolded = [ "Offset", "Transform", "Z Index" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
@@ -39,14 +40,16 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="ArrowSprite" type="Sprite" parent="GrappleCast" index="0"]
 
-position = Vector2( -0.0653305, 48.1992 )
-scale = Vector2( -1, -1 )
+position = Vector2( 0.0957012, 36.3818 )
+scale = Vector2( -0.75, -0.75 )
 z_index = -1
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="GrappleSprite" type="Sprite" parent="." index="3"]
 
+visible = false
+scale = Vector2( 0.5, 1 )
 z_index = -1
 texture = ExtResource( 4 )
 centered = false
