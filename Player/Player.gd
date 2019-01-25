@@ -24,7 +24,7 @@ func move():
 		current_speed.x = max(current_speed.x - acceleration, -max_speed)
 		direction = -1
 	
-	if Input.is_action_pressed("action"):
+	if Input.is_action_pressed("action") and !grappled:
 		#If grapple collides with _anything_ grapple that shit
 		if $GrappleCast.is_colliding():
 			grapple_point = $GrappleCast.get_collision_point()
