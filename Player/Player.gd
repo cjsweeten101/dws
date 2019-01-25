@@ -9,6 +9,7 @@ var current_speed = Vector2(0,0)
 var grappled = false
 var direction = 1
 var grapple_point = Vector2()
+var grapple_cooled_down = true
 
 func _physics_process(delta):
 	move()
@@ -25,15 +26,12 @@ func move():
 		current_speed.x = max(current_speed.x - acceleration, -max_speed)
 		direction = -1
 	
-	if Input.is_action_pressed("action") and !grappled:
+	if Input.is_action_pressed("action") and !grappled and grapple_cooled_down:
 		#If grapple collides with _anything_ grapple that shit
 		if $GrappleCast.is_colliding():
-			grapple_point = $GrappleCast.get_collision_point()
-			grappled = true
-			$GrappleSprite.visible = true
+			set_grappled(true)
 	elif Input.is_action_just_released("action"):
-		grappled = false
-		$GrappleSprite.visible = false
+		set_grappled(false)
 	
 	current_speed.x = lerp(current_speed.x, 0, ground_friction)
 	if !is_on_floor():
@@ -64,5 +62,19 @@ func draw_grapple_hook(vect):
 func check_for_break():
 	if $GrappleCast.is_colliding():
 		if $GrappleCast.get_collision_point().round() != grapple_point.round():
-			grappled = false
-			$GrappleSprite.visible = false
+			set_grappled(false)
+
+func set_grappled(booly):
+	if booly == true:
+		grapple_point = $GrappleCast.get_collision_point()
+		grappled = true
+		$GrappleSprite.visible = true
+	elif booly == false:
+		grappled = false
+		$GrappleSprite.visible = false
+		grapple_cooled_down = false
+		if $GrappleCoolDown.is_stopped():
+			$GrappleCoolDown.start()
+
+func _on_GrappleCoolDown_timeout():
+	grapple_cooled_down = true
