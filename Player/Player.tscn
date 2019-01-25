@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/default_square.png" type="Texture" id=2]
-[ext_resource path="res://Player/default_grapple.png" type="Texture" id=3]
+[ext_resource path="res://Player/default_arrow.png" type="Texture" id=3]
+[ext_resource path="res://Player/default_grapple.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -36,10 +37,18 @@ cast_to = Vector2( 0, 1000 )
 collision_mask = 1
 _sections_unfolded = [ "Transform" ]
 
+[node name="ArrowSprite" type="Sprite" parent="GrappleCast" index="0"]
+
+position = Vector2( -0.0653305, 48.1992 )
+scale = Vector2( -1, -1 )
+z_index = -1
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
 [node name="GrappleSprite" type="Sprite" parent="." index="3"]
 
 z_index = -1
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 centered = false
 offset = Vector2( -4, 0 )
 _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
