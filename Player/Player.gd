@@ -1,15 +1,20 @@
 extends KinematicBody2D
 
 var UP = Vector2(0,-1)
-var gravity = Vector2(0,25)
-var acceleration = 200
-var max_speed = 700
+var gravity = Vector2(0,40)
+var acceleration = 225
+var max_speed = 850
 var ground_friction = .3
+var air_friction = .3
+var grapple_friction = .3
 var current_speed = Vector2(0,0)
 var grappled = false
 var direction = 1
 var grapple_point = Vector2()
 var grapple_cooled_down = true
+
+func ready():
+	current_speed = move_and_slide(gravity, UP)
 
 func _physics_process(delta):
 	move()
@@ -19,6 +24,9 @@ func _physics_process(delta):
 		check_for_break()
 
 func move():
+	current_speed += gravity
+	current_speed = move_and_slide(current_speed, UP)
+
 	if Input.is_action_pressed("right"):
 		current_speed.x = min(current_speed.x + acceleration, max_speed)
 		direction = 1
@@ -33,11 +41,12 @@ func move():
 	elif Input.is_action_just_released("action"):
 		set_grappled(false)
 	
-	current_speed.x = lerp(current_speed.x, 0, ground_friction)
-	if !is_on_floor():
-		current_speed += gravity
-	
-	current_speed = move_and_slide(current_speed, UP)
+	if grappled:
+		current_speed.x = lerp(current_speed.x, 0, grapple_friction)
+	elif is_on_floor():
+		current_speed.x = lerp(current_speed.x, 0, ground_friction)
+	else:
+		current_speed.x = lerp(current_speed.x, 0, air_friction)
 
 func set_direction():
 	if grappled:
@@ -50,7 +59,7 @@ func set_direction():
 
 func reel_in():
 	var grapple_vector = (grapple_point - global_position)
-	current_speed += grapple_vector.normalized()*55
+	current_speed += grapple_vector.normalized()*75
 	draw_grapple_hook(grapple_vector)
 
 func draw_grapple_hook(vect):
@@ -66,10 +75,12 @@ func check_for_break():
 
 func set_grappled(booly):
 	if booly == true:
+		current_speed.y *= .40
 		grapple_point = $GrappleCast.get_collision_point()
 		grappled = true
 		$GrappleSprite.visible = true
 	elif booly == false:
+		current_speed *= 1.2
 		grappled = false
 		$GrappleSprite.visible = false
 		grapple_cooled_down = false
