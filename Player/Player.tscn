@@ -60,7 +60,7 @@ _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 [node name="GrappleCoolDown" type="Timer" parent="." index="4"]
 
 process_mode = 1
-wait_time = 0.3
+wait_time = 0.1
 one_shot = false
 autostart = false
 
