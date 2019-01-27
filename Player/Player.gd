@@ -2,8 +2,8 @@ extends KinematicBody2D
 
 var UP = Vector2(0,-1)
 var gravity = Vector2(0,40)
-var acceleration = 225
-var max_speed = 850
+var acceleration = 150
+var max_speed = 700
 var ground_friction = .3
 var air_friction = .3
 var grapple_friction = .3
@@ -12,18 +12,20 @@ var grappled = false
 var direction = 1
 var grapple_point = Vector2()
 var grapple_cooled_down = true
+var grapple_angle
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
 
 func _physics_process(delta):
 	move()
-	set_direction()
+	set_grapple_direction()
 	if grappled:
 		reel_in()
 		check_for_break()
 
 func move():
+	var friction = false
 	current_speed += gravity
 	current_speed = move_and_slide(current_speed, UP)
 
@@ -33,6 +35,8 @@ func move():
 	elif Input.is_action_pressed("left"):
 		current_speed.x = max(current_speed.x - acceleration, -max_speed)
 		direction = -1
+	else:
+		friction = true
 	
 	if Input.is_action_pressed("action") and !grappled and grapple_cooled_down:
 		#If grapple collides with _anything_ grapple that shit
@@ -41,21 +45,23 @@ func move():
 	elif Input.is_action_just_released("action"):
 		set_grappled(false)
 	
-	if grappled:
-		current_speed.x = lerp(current_speed.x, 0, grapple_friction)
-	elif is_on_floor():
-		current_speed.x = lerp(current_speed.x, 0, ground_friction)
-	else:
-		current_speed.x = lerp(current_speed.x, 0, air_friction)
+	if friction == true:
+		if grappled:
+			current_speed.x = lerp(current_speed.x, 0, grapple_friction)
+		elif is_on_floor():
+			current_speed.x = lerp(current_speed.x, 0, ground_friction)
+		else:
+			current_speed.x = lerp(current_speed.x, 0, air_friction)
 
-func set_direction():
+func set_grapple_direction():
 	if grappled:
 		$GrappleCast.rotation_degrees = (grapple_point - global_position).normalized().angle()*180/PI - 90
 	else:
-		if direction == 1:
-			$GrappleCast.rotation_degrees = 210
-		if direction == -1:
-			$GrappleCast.rotation_degrees = 150
+		$GrappleCast.rotation_degrees = 180 + current_speed.x/max_speed*(40)
+		#if direction == 1:
+		#	$GrappleCast.rotation_degrees = 210
+		#if direction == -1:
+		#	$GrappleCast.rotation_degrees = 150
 
 func reel_in():
 	var grapple_vector = (grapple_point - global_position)
