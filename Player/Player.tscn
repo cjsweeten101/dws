@@ -10,7 +10,7 @@
 custom_solver_bias = 0.0
 extents = Vector2( 24, 24 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
 collision_layer = 1
@@ -60,7 +60,7 @@ _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 [node name="GrappleCoolDown" type="Timer" parent="." index="4"]
 
 process_mode = 1
-wait_time = 0.5
+wait_time = 0.3
 one_shot = false
 autostart = false
 
