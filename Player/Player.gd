@@ -13,6 +13,8 @@ var direction = 1
 var grapple_point = Vector2()
 var grapple_cooled_down = true
 var grapple_angle
+var elasticity = .10
+var grapple_boost = 1.2
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
@@ -78,13 +80,13 @@ func check_for_break():
 
 func set_grappled(booly):
 	if booly == true:
-		current_speed.y *= .40
+		current_speed.y *= elasticity
 		grapple_point = $GrappleCast.get_collision_point()
 		grappled = true
 		$GrappleSprite.visible = true
 	elif booly == false:
 		$GrappleCast/ArrowSprite.position = Vector2(0.095701, 36.381802)
-		current_speed *= 1.2
+		current_speed *= grapple_boost
 		grappled = false
 		$GrappleSprite.visible = false
 		grapple_cooled_down = false
