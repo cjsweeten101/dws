@@ -21,7 +21,8 @@ func ready():
 
 func _physics_process(delta):
 	move()
-	set_grapple_direction()
+	if $MissDisplay.is_stopped():
+		set_grapple_direction()
 	if grappled:
 		reel_in()
 		check_for_break()
@@ -44,6 +45,8 @@ func move():
 		#If grapple collides with _anything_ grapple that shit
 		if $GrappleCast.is_colliding():
 			set_grappled(true)
+		else:
+			draw_miss()
 	elif Input.is_action_just_released("action"):
 		set_grappled(false)
 	
@@ -55,7 +58,15 @@ func move():
 		else:
 			current_speed.x = lerp(current_speed.x, 0, air_friction)
 
+func draw_miss():
+	var angle = $GrappleCast.rotation
+	$GrappleSprite.visible = true
+	draw_grapple_hook(Vector2(0,1).rotated(angle)*300)
+	if $MissDisplay.is_stopped():
+		$MissDisplay.start()
+
 func set_grapple_direction():
+	
 	if grappled:
 		$GrappleCast.rotation_degrees = (grapple_point - global_position).normalized().angle()*180/PI - 90
 	else:
@@ -71,7 +82,7 @@ func draw_grapple_hook(vect):
 	var direction = vect.normalized()
 	$GrappleSprite.rotation_degrees = direction.angle() * 180/PI - 90
 	$GrappleSprite.scale.y = size/($GrappleSprite.texture.get_height())
-	$GrappleCast/ArrowSprite.global_position = grapple_point
+	$GrappleCast/ArrowSprite.global_position = global_position + vect
 
 func check_for_break():
 	if $GrappleCast.is_colliding():
@@ -95,3 +106,10 @@ func set_grappled(booly):
 
 func _on_GrappleCoolDown_timeout():
 	grapple_cooled_down = true
+
+
+func _on_MissDisplay_timeout():
+	$GrappleSprite.visible = false
+	$GrappleCast/ArrowSprite.position = Vector2(0.095701, 36.381802)
+	if $GrappleCoolDown.is_stopped():
+		$GrappleCoolDown.start()

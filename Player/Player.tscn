@@ -64,6 +64,15 @@ wait_time = 0.1
 one_shot = false
 autostart = false
 
+[node name="MissDisplay" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 0.1
+one_shot = true
+autostart = false
+
 [connection signal="timeout" from="GrappleCoolDown" to="." method="_on_GrappleCoolDown_timeout"]
+
+[connection signal="timeout" from="MissDisplay" to="." method="_on_MissDisplay_timeout"]
 
 
