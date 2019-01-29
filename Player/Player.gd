@@ -69,6 +69,7 @@ func draw_grapple_hook(vect):
 	var direction = vect.normalized()
 	$GrappleSprite.rotation_degrees = direction.angle() * 180/PI - 90
 	$GrappleSprite.scale.y = size/($GrappleSprite.texture.get_height())
+	$GrappleCast/ArrowSprite.global_position = grapple_point
 
 func check_for_break():
 	if $GrappleCast.is_colliding():
@@ -82,6 +83,7 @@ func set_grappled(booly):
 		grappled = true
 		$GrappleSprite.visible = true
 	elif booly == false:
+		$GrappleCast/ArrowSprite.position = Vector2(0.095701, 36.381802)
 		current_speed *= 1.2
 		grappled = false
 		$GrappleSprite.visible = false
