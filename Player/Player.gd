@@ -14,7 +14,7 @@ var grapple_point = Vector2()
 var grapple_cooled_down = true
 var grapple_angle
 var elasticity = .10
-var grapple_boost = 1.2
+var grapple_boost = Vector2(1.2,1.4)
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
