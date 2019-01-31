@@ -43,11 +43,14 @@ func move():
 		friction = true
 	
 	if Input.is_action_just_pressed("action") and !grappled and grapple_cooled_down:
+		pass
 		#If grapple collides with _anything_ grapple that shit
-		if $GrappleCast.is_colliding():
-			set_grappled(true)
-		else:
-			draw_miss()
+		#if $GrappleCast.is_colliding():
+		#	pass
+		#	#set_grappled(true)
+		#else:
+		#	#draw_miss()
+		#	pass
 	elif Input.is_action_just_released("action"):
 		set_grappled(false)
 	
