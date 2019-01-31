@@ -4,7 +4,7 @@
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
 [ext_resource path="res://Player/Achilles.tscn" type="PackedScene" id=3]
 
-[node name="TestingLevel" type="Node2D" index="0"]
+[node name="TestingLevel" type="Node2D"]
 
 script = ExtResource( 1 )
 
