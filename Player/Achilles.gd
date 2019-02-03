@@ -47,10 +47,13 @@ func grapple():
 		deploy_spear()
 	elif Input.is_action_just_released("action"):
 		spear.retract()
+	if spear != null and spear.is_grappled():
+		current_speed += spear.get_reel_in_speed()
 
 func deploy_spear():
-	spear = load("res://Player/Spear.tscn")
-	spear = spear.instance()
-	get_parent().add_child(spear)
+	if spear == null:
+		spear = load("res://Player/Spear.tscn")
+		spear = spear.instance()
+		get_parent().add_child(spear)
 	spear.global_position = global_position
 	spear.deploy($AimSprite.rotation_degrees)
