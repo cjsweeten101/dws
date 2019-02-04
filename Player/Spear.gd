@@ -8,7 +8,7 @@ var current_speed = Vector2()
 var UP = Vector2(0,-1)
 var gravity = Vector2(0,40)
 var air_friction = .3
-var launch_speed = 1000
+var launch_speed = 1500
 var frozen = false
 var retract = false
 
@@ -69,7 +69,7 @@ func get_reel_in_speed():
 	#Need to get the vector between the player and the spear tip
 	#That is, if there isn't something between them
 	#In that case do some crazy shit
-	pass
+	return Vector2(0,0)
 
 func get_player_pos():
 	return get_tree().get_nodes_in_group("player")[0].global_position
