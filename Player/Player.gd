@@ -71,7 +71,7 @@ func set_grapple_direction():
 	if grappled:
 		$GrappleCast.rotation_degrees = (grapple_point - global_position).normalized().angle()*180/PI - 90
 	else:
-		$GrappleCast.rotation_degrees = 180 + current_speed.x/max_speed*(35)
+		$GrappleCast.rotation_degrees = 180 + current_speed.x/max_speed*(45)
 
 func reel_in():
 	var grapple_vector = (grapple_point - global_position)
