@@ -17,6 +17,7 @@ var elasticity = .10
 var grapple_boost = Vector2(1.3,1.5)
 var initial_grapple
 var just_released = true
+var grapple_length = 0
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
@@ -77,7 +78,7 @@ func set_grapple_direction():
 				$GrappleCast.rotation_degrees = 180 + current_speed.x/max_speed*(45)
 				just_released = false
 		else:
-			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + current_speed.x/max_speed*(45), 0.25)
+			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + current_speed.x/max_speed*(45), 0.2)
 
 func reel_in():
 	var grapple_vector = (grapple_point - global_position)

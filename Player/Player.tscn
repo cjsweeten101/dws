@@ -33,7 +33,7 @@ shape = SubResource( 1 )
 [node name="GrappleCast" type="RayCast2D" parent="." index="2"]
 
 rotation = 2.61799
-scale = Vector2( 0.1, 1 )
+scale = Vector2( 10, 1 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
@@ -45,7 +45,7 @@ _sections_unfolded = [ "Transform" ]
 modulate = Color( 1, 1, 1, 0.392157 )
 position = Vector2( 0.0957031, 36.3818 )
 rotation = 3.14159
-scale = Vector2( 10, -0.75 )
+scale = Vector2( -0.1, -1 )
 z_index = -1
 texture = ExtResource( 3 )
 centered = false
@@ -54,7 +54,7 @@ _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 [node name="ArrowSprite" type="Sprite" parent="GrappleCast" index="1"]
 
 position = Vector2( 0.0957012, 36.3818 )
-scale = Vector2( -10, -0.75 )
+scale = Vector2( 0.1, -1 )
 z_index = -1
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Transform", "Z Index" ]
