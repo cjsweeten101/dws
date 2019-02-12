@@ -18,6 +18,8 @@ var grapple_boost = Vector2(1.3,1.5)
 var just_released = true
 var grapple_length = 0
 var reel_in_speed = 75
+var reel_first_pass = true
+var grapple_off = false
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
@@ -50,9 +52,10 @@ func move():
 			set_grappled(true)
 		else:
 			draw_miss()
-	elif Input.is_action_just_released("action"):
+	elif Input.is_action_just_released("action") or grapple_off:
 		set_grappled(false)
-
+		grapple_off = false
+		
 	if friction == true:
 		if grappled:
 			current_speed.x = lerp(current_speed.x, 0, grapple_friction)
@@ -83,6 +86,12 @@ func set_grapple_direction():
 	
 func reel_in():
 	var grapple_vector = (grapple_point - global_position)
+	if grapple_vector.length() > grapple_length+5 and !reel_first_pass:
+		grapple_off = true
+	
+	if reel_first_pass:
+		reel_first_pass = false
+
 	grapple_length = grapple_vector.length()
 	current_speed += grapple_vector.normalized()*reel_in_speed
 	draw_grapple_hook(grapple_vector)
@@ -107,6 +116,7 @@ func set_grappled(booly):
 		grappled = true
 		$GrappleSprite.visible = true
 	elif booly == false:
+		reel_first_pass = true
 		$GrappleCast/AimingSprite.visible = true
 		$GrappleCast/ArrowSprite.position = Vector2(0.095701, 36.381802)
 		current_speed *= grapple_boost
