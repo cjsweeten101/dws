@@ -13,13 +13,14 @@ radius = 43.0116
 custom_solver_bias = 0.0
 radius = 93.6483
 
-[node name="SpikyFloaty" type="KinematicBody2D" index="0"]
+[node name="SpikyFloaty" type="KinematicBody2D"]
 
 input_pickable = false
-collision_layer = 1
+collision_layer = 4
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
+_sections_unfolded = [ "Collision" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -54,6 +55,7 @@ linear_damp = 0.1
 angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
+_sections_unfolded = [ "Collision" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 
@@ -64,5 +66,7 @@ shape = SubResource( 2 )
 [connection signal="timeout" from="PauseTimer" to="." method="_on_PauseTimer_timeout"]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 
 

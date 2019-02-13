@@ -14,11 +14,11 @@ extents = Vector2( 24, 24 )
 [node name="Player" type="KinematicBody2D" index="0"]
 
 input_pickable = false
-collision_layer = 1
+collision_layer = 1024
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="PlayerSprite" type="Sprite" parent="." index="0"]
 
@@ -37,7 +37,7 @@ scale = Vector2( 10, 1 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
-collision_mask = 1
+collision_mask = 6
 _sections_unfolded = [ "Transform" ]
 
 [node name="AimingSprite" type="Sprite" parent="GrappleCast" index="0"]
