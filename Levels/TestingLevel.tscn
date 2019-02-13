@@ -10,7 +10,9 @@
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="TileMap" type="TileMap" parent="." index="0"]
+[node name="TileMap" type="TileMap" parent="." index="0" groups=[
+"tiles",
+]]
 
 scale = Vector2( 0.75, 0.75 )
 mode = 0
