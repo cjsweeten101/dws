@@ -16,7 +16,7 @@ radius = 44.0454
 custom_solver_bias = 0.0
 radius = 93.6483
 
-[node name="SpikyFloaty" type="KinematicBody2D" index="0" groups=[
+[node name="SpikyFloaty" type="KinematicBody2D" groups=[
 "enemies",
 ]]
 
