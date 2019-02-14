@@ -21,10 +21,20 @@ var reel_in_speed = 75
 var reel_first_pass = true
 var grapple_off = false
 var health = 3
+var new_grapple_point
+var grapple_points = [Vector2(0,0)]
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
 
+func _draw():
+	if grappled:
+		for i in range (0, grapple_points.size()):
+			if i == grapple_points.size() - 1:
+				draw_line(grapple_points[i] - global_position, Vector2(0,0), Color(255,255,255), 2)
+			else:
+				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
+		#draw_line(Vector2(0,0), grapple_point - global_position, Color(255,255,255), 2)
 func _physics_process(delta):
 	if is_dead():
 		queue_free()
@@ -104,20 +114,25 @@ func reel_in():
 func draw_grapple_hook(vect):
 	var size = vect.length()
 	var direction = vect.normalized()
-	$GrappleSprite.rotation_degrees = direction.angle() * 180/PI - 90
-	$GrappleSprite.scale.y = size/($GrappleSprite.texture.get_height())
+	update()
+	#$GrappleSprite.rotation_degrees = direction.angle() * 180/PI - 90
+	#$GrappleSprite.scale.y = size/($GrappleSprite.texture.get_height())
 	$GrappleCast/ArrowSprite.global_position = global_position + vect
 
 func check_for_break():
 	if $GrappleCast.is_colliding():
 		if $GrappleCast.get_collision_point().round() != grapple_point.round():
-			set_grappled(false)
+			if grapple_points.size() > 9:
+				set_grappled(false)
+			else:
+				grapple_points.append($GrappleCast.get_collision_point())
 
 func set_grappled(booly):
 	if booly == true:
 		$GrappleCast/AimingSprite.visible = false
 		current_speed.y *= elasticity
 		grapple_point = $GrappleCast.get_collision_point()
+		grapple_points = [grapple_point]
 		grappled = true
 		$GrappleSprite.visible = true
 	elif booly == false:
@@ -130,6 +145,8 @@ func set_grappled(booly):
 		grapple_cooled_down = false
 		if $GrappleCoolDown.is_stopped():
 			$GrappleCoolDown.start()
+		grapple_points = []
+		update()
 
 func _on_GrappleCoolDown_timeout():
 	grapple_cooled_down = true
