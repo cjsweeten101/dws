@@ -122,10 +122,11 @@ func draw_grapple_hook(vect):
 func check_for_break():
 	if $GrappleCast.is_colliding():
 		if $GrappleCast.get_collision_point().round() != grapple_point.round():
-			if grapple_points.size() > 9:
+			if grapple_points.size() > 2:
 				set_grappled(false)
 			else:
-				grapple_points.append($GrappleCast.get_collision_point())
+				if round($GrappleCast.get_collision_point().y) != round(grapple_points[grapple_points.size() - 1].y):
+					grapple_points.append($GrappleCast.get_collision_point())
 
 func set_grappled(booly):
 	if booly == true:
