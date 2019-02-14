@@ -49,6 +49,8 @@ func move():
 	if Input.is_action_just_pressed("action") and !grappled and grapple_cooled_down:
 		#If grapple collides with _anything_ grapple that shit
 		if $GrappleCast.is_colliding():
+			if $GrappleCast.get_collider().is_in_group("enemies"):
+				$GrappleCast.get_collider().grapple_hit()
 			set_grappled(true)
 		else:
 			draw_miss()
@@ -106,7 +108,8 @@ func draw_grapple_hook(vect):
 func check_for_break():
 	if $GrappleCast.is_colliding():
 		if $GrappleCast.get_collision_point().round() != grapple_point.round():
-			set_grappled(false)
+			pass
+			#set_grappled(false)
 
 func set_grappled(booly):
 	if booly == true:

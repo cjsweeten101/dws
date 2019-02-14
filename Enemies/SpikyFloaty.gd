@@ -10,6 +10,7 @@ var last_direction = Vector2(0,0)
 var acceleration = 75
 var proximity_tile_pos
 var dir
+var grappled = false
 
 #Need this boy to roam around randomly.
 #Basic Implemantion with a timer?
@@ -25,7 +26,8 @@ func _ready():
 	randomize()
 
 func _physics_process(delta):
-	move(delta)
+	if !grappled:
+		move(delta)
 
 func move(delta):
 	if $PauseTimer.is_stopped():
@@ -92,3 +94,12 @@ func _on_Area2D_body_entered(body):
 func _on_Area2D_body_exited(body):
 	if body.is_in_group("tiles"):
 		proximity_tile_pos = null
+
+#Idea, pause when grappled.  Then shake a bit (anim), then explode (anim)
+func grapple_hit():
+	$AnimationPlayer.play("shake_anim")
+	grappled = true
+	current_speed = Vector2(0,0)
+
+func explode():
+	$AnimationPlayer.play("explosion_anim")
