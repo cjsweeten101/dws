@@ -20,11 +20,14 @@ var grapple_length = 0
 var reel_in_speed = 75
 var reel_first_pass = true
 var grapple_off = false
+var health = 3
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
 
 func _physics_process(delta):
+	if is_dead():
+		queue_free()
 	move()
 	if $MissDisplay.is_stopped():
 		set_grapple_direction()
@@ -137,3 +140,12 @@ func _on_MissDisplay_timeout():
 	$GrappleCast/ArrowSprite.position = Vector2(0.095701, 36.381802)
 	if $GrappleCoolDown.is_stopped():
 		$GrappleCoolDown.start()
+
+func add_health(amt):
+	health += amt
+
+func remove_health(amt):
+	health -= amt
+
+func is_dead():
+	return health <= 0

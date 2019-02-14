@@ -10,4 +10,5 @@ func _ready():
 	pass
 
 func _process(delta):
-	$Camera.position.x = $Player.position.x
+	if $Player != null:
+		$Camera.position.x = $Player.position.x
