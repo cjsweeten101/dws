@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Enemies/SpikyFloaty.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/temp_spiky_floaty.png" type="Texture" id=2]
@@ -15,6 +15,11 @@ radius = 44.0454
 
 custom_solver_bias = 0.0
 radius = 93.6483
+
+[sub_resource type="CircleShape2D" id=4]
+
+custom_solver_bias = 0.0
+radius = 44.0
 
 [node name="SpikyFloaty" type="KinematicBody2D" groups=[
 "enemies",
@@ -84,6 +89,20 @@ anims/explosion_anim = ExtResource( 4 )
 anims/shake_anim = ExtResource( 5 )
 blend_times = [  ]
 
+[node name="HurtBox" type="Area2D" parent="." index="7"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox" index="0"]
+
+shape = SubResource( 4 )
+
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
 
 [connection signal="timeout" from="PauseTimer" to="." method="_on_PauseTimer_timeout"]
@@ -91,5 +110,7 @@ blend_times = [  ]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
 
 

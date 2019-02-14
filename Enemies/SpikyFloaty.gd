@@ -103,3 +103,7 @@ func grapple_hit():
 
 func explode():
 	$AnimationPlayer.play("explosion_anim")
+
+func _on_HurtBox_body_entered(body):
+	if body.is_in_group("player"):
+		body.remove_health(1)
