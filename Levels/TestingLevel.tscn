@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/SpikyFloaty.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Enemies/SoftWalky.tscn" type="PackedScene" id=5]
 
 [node name="TestingLevel" type="Node2D"]
 
@@ -71,5 +72,9 @@ _sections_unfolded = [ "Limit", "Smoothing", "Transform" ]
 [node name="SpikyFloaty" parent="." index="3" instance=ExtResource( 4 )]
 
 position = Vector2( 898, 273 )
+
+[node name="SoftWalky" parent="." index="4" instance=ExtResource( 5 )]
+
+position = Vector2( 1190, 598 )
 
 

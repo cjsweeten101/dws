@@ -103,7 +103,6 @@ func reel_in():
 	var grapple_vector = (grapple_point - global_position)
 	if grapple_vector.length() > grapple_length+5 and !reel_first_pass:
 		grapple_off = true
-	
 	if reel_first_pass:
 		reel_first_pass = false
 
