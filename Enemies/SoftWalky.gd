@@ -9,7 +9,6 @@ var current_speed = Vector2()
 var direction = -1
 
 func _ready():
-	#current_speed = move_and_slide(gravity, UP)
 	pass
 
 func _physics_process(delta):
@@ -22,21 +21,15 @@ func move():
 		current_speed.x = min(current_speed.x + acceleration, max_speed)
 	elif direction == -1:
 		current_speed.x = max(current_speed.x - acceleration, -max_speed)
-	
-	#if !is_on_floor():
-	#	current_speed += gravity
-	#else:
-	#	current_speed.y = 0
 
 func check_for_turnaround():
-	#print("------")
-	#print(is_on_floor())
-	#print(current_speed.y)
-	#print("------")
-	#if is_on_floor():
 	if !$TurnAroundRay.is_colliding():
 		turn_around()
 	
 func turn_around():
 	self.scale.x *= -1
 	direction *= -1
+
+func _on_HurtBox_body_entered(body):
+	if body.is_in_group("player"):
+		body.remove_health(1)

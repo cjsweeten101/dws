@@ -7,11 +7,11 @@
 
 scale = Vector2( 0.8, 0.8 )
 input_pickable = false
-collision_layer = 1
+collision_layer = 4
 collision_mask = 1
 collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Collision", "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
@@ -31,5 +31,23 @@ exclude_parent = true
 cast_to = Vector2( 0, 45 )
 collision_mask = 1
 _sections_unfolded = [ "Transform" ]
+
+[node name="HurtBox" type="Area2D" parent="." index="3"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HurtBox" index="0"]
+
+scale = Vector2( 1, 1 )
+build_mode = 0
+polygon = PoolVector2Array( -59, 32, -63, 20, -63, 5, -50, -15, -13, -31, 13, -32, 46, -18, 63, 6, 63, 25, 60, 32 )
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
 
 
