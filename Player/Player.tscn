@@ -75,7 +75,8 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="GrappleSprite" type="Sprite" parent="." index="3"]
 
-scale = Vector2( 0.5, 0.71875 )
+visible = false
+scale = Vector2( 0.5, 1 )
 z_index = -1
 texture = ExtResource( 5 )
 centered = false
