@@ -47,19 +47,18 @@ shape = SubResource( 1 )
 [node name="GrappleCast" type="RayCast2D" parent="." index="2"]
 
 rotation = 2.61799
-scale = Vector2( 40, 1 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
 collision_mask = 6
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform" ]
 
 [node name="AimingSprite" type="Sprite" parent="GrappleCast" index="0"]
 
 modulate = Color( 1, 1, 1, 0.392157 )
-position = Vector2( 0.0957031, 36.3818 )
+position = Vector2( 1, 36.3818 )
 rotation = 3.14159
-scale = Vector2( -0.04, -1 )
+scale = Vector2( 1, -1 )
 z_index = -1
 texture = ExtResource( 3 )
 centered = false
@@ -68,10 +67,28 @@ _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 [node name="ArrowSprite" type="Sprite" parent="GrappleCast" index="1"]
 
 position = Vector2( 0.0957012, 36.3818 )
-scale = Vector2( 0.04, -1 )
+scale = Vector2( 1, -1 )
 z_index = -1
 texture = ExtResource( 4 )
 _sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="EdgeRay1" type="RayCast2D" parent="GrappleCast" index="2"]
+
+position = Vector2( 12, 0 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 1000 )
+collision_mask = 6
+_sections_unfolded = [ "Transform" ]
+
+[node name="EdgeRay2" type="RayCast2D" parent="GrappleCast" index="3"]
+
+position = Vector2( -12, 0 )
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 1000 )
+collision_mask = 6
+_sections_unfolded = [ "Transform" ]
 
 [node name="GrappleSprite" type="Sprite" parent="." index="3"]
 

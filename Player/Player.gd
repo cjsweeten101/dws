@@ -23,6 +23,8 @@ var grapple_off = false
 var health = 3
 var new_grapple_point
 var grapple_points = []
+onready var rays = [$GrappleCast, $GrappleCast/EdgeRay1, $GrappleCast/EdgeRay2]
+
 
 func ready():
 	current_speed = move_and_slide(gravity, UP)
@@ -61,14 +63,16 @@ func move():
 	
 	if Input.is_action_just_pressed("action") and !grappled and grapple_cooled_down:
 		#If grapple collides with _anything_ grapple that shit
-		if $GrappleCast.is_colliding():
-			if $GrappleCast.get_collider().is_in_group("enemies"):
-				$GrappleCast.get_collider().grapple_hit()
-			set_grappled(true)
+		
+		if rays_colliding():
+		#if $GrappleCast.is_colliding():
+		#	if $GrappleCast.get_collider().is_in_group("enemies"):
+		#		$GrappleCast.get_collider().grapple_hit()
+			set_grappled(true, get_ray_collision_point())
 		else:
 			draw_miss()
 	elif Input.is_action_just_released("action") or grapple_off:
-		set_grappled(false)
+		set_grappled(false, 0)
 		grapple_off = false
 		
 	if friction == true:
@@ -79,6 +83,20 @@ func move():
 		else:
 			current_speed.x = lerp(current_speed.x, 0, air_friction)
 
+func rays_colliding():
+	for ray in rays:
+		if ray.is_colliding():
+			if ray.get_collider().is_in_group("enemies"):
+				ray.get_collider().grapple_hit()
+			return true
+	return false
+
+func get_ray_collision_point():
+	var points = []
+	for ray in rays:
+		if ray.is_colliding():
+			points.append(ray.get_collision_point())
+	return points[0]
 
 func draw_miss():
 	var angle = $GrappleCast.rotation
@@ -120,16 +138,16 @@ func check_for_break():
 	if $GrappleCast.is_colliding():
 		if $GrappleCast.get_collision_point().round() != grapple_point.round():
 			if grapple_points.size() > 2:
-				set_grappled(false)
+				set_grappled(false, 0)
 			else:
 				if round($GrappleCast.get_collision_point().y) != round(grapple_points[grapple_points.size() - 1].y):
 					grapple_points.append($GrappleCast.get_collision_point())
 
-func set_grappled(booly):
+func set_grappled(booly, point):
 	if booly == true:
 		$GrappleCast/AimingSprite.visible = false
 		current_speed.y *= elasticity
-		grapple_point = $GrappleCast.get_collision_point()
+		grapple_point = point
 		grapple_points = [grapple_point]
 		grappled = true
 	elif booly == false:
