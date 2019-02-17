@@ -47,12 +47,12 @@ shape = SubResource( 1 )
 [node name="GrappleCast" type="RayCast2D" parent="." index="2"]
 
 rotation = 2.61799
-scale = Vector2( 30, 1 )
+scale = Vector2( 40, 1 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
 collision_mask = 6
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="AimingSprite" type="Sprite" parent="GrappleCast" index="0"]
 
