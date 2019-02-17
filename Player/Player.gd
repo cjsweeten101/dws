@@ -82,6 +82,7 @@ func move():
 
 func draw_miss():
 	var angle = $GrappleCast.rotation
+	grapple_points.append($GrappleCast/ArrowSprite.global_position + (Vector2(0,1).rotated(angle)*275))
 	draw_grapple_hook(Vector2(0,1).rotated(angle)*300)
 	if $MissDisplay.is_stopped():
 		$MissDisplay.start()
@@ -113,8 +114,6 @@ func draw_grapple_hook(vect):
 	var size = vect.length()
 	var direction = vect.normalized()
 	$GrappleCast/ArrowSprite.global_position = global_position + vect
-	if grapple_points.size() == 0:
-		grapple_points.append($GrappleCast/ArrowSprite.global_position)
 	update()
 	
 func check_for_break():
@@ -152,6 +151,7 @@ func _on_GrappleCoolDown_timeout():
 func _on_MissDisplay_timeout():
 	$GrappleCast/ArrowSprite.position = Vector2(0.095701, 36.381802)
 	grapple_points = []
+	update()
 	if $GrappleCoolDown.is_stopped():
 		$GrappleCoolDown.start()
 
