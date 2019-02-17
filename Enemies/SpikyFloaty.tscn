@@ -6,7 +6,7 @@
 [ext_resource path="res://Enemies/explosion_anim.tres" type="Animation" id=4]
 [ext_resource path="res://Enemies/shake_anim.tres" type="Animation" id=5]
 
-[sub_resource type="CircleShape2D" id=3]
+[sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 44.0454
@@ -16,7 +16,7 @@ radius = 44.0454
 custom_solver_bias = 0.0
 radius = 93.6483
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 
 custom_solver_bias = 0.0
 radius = 44.0
@@ -40,7 +40,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="MoveTimer" type="Timer" parent="." index="2"]
 
@@ -101,7 +101,7 @@ audio_bus_name = "Master"
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox" index="0"]
 
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
 

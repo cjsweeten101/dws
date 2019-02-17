@@ -175,3 +175,6 @@ func attack(body):
 		current_speed.y = 0
 	current_speed.y -= 1000
 	current_speed.x *= 2
+
+func is_grappled():
+	return grappled
