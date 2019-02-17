@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/default_square.png" type="Texture" id=2]
@@ -18,7 +18,12 @@ length = 0.5
 loop = false
 step = 0.1
 
-[node name="Player" type="KinematicBody2D" groups=[
+[sub_resource type="RectangleShape2D" id=3]
+
+custom_solver_bias = 0.0
+extents = Vector2( 25, 25 )
+
+[node name="Player" type="KinematicBody2D" index="0" groups=[
 "player",
 ]]
 
@@ -101,8 +106,24 @@ playback_speed = 1.0
 anims/damage_anim = SubResource( 2 )
 blend_times = [  ]
 
+[node name="HurtBox" type="Area2D" parent="." index="7"]
+
+input_pickable = true
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+audio_bus_override = false
+audio_bus_name = "Master"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+
+shape = SubResource( 3 )
+
 [connection signal="timeout" from="GrappleCoolDown" to="." method="_on_GrappleCoolDown_timeout"]
 
 [connection signal="timeout" from="MissDisplay" to="." method="_on_MissDisplay_timeout"]
+
+[connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
 
 

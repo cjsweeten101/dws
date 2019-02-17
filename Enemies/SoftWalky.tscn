@@ -3,7 +3,9 @@
 [ext_resource path="res://Enemies/SoftWalky.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/temp_soft_walky.png" type="Texture" id=2]
 
-[node name="SoftWalky" type="KinematicBody2D" index="0"]
+[node name="SoftWalky" type="KinematicBody2D" groups=[
+"soft",
+]]
 
 scale = Vector2( 0.8, 0.8 )
 input_pickable = false
@@ -44,7 +46,6 @@ audio_bus_name = "Master"
 
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="HurtBox" index="0"]
 
-scale = Vector2( 1, 1 )
 build_mode = 0
 polygon = PoolVector2Array( -59, 32, -63, 20, -63, 5, -50, -15, -13, -31, 13, -32, 46, -18, 63, 6, 63, 25, 60, 32 )
 

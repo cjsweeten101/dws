@@ -33,3 +33,6 @@ func turn_around():
 func _on_HurtBox_body_entered(body):
 	if body.is_in_group("player"):
 		body.remove_health(1)
+
+func hit():
+	queue_free()
