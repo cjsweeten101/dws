@@ -34,7 +34,6 @@ func _draw():
 				draw_line(grapple_points[i] - global_position, Vector2(0,0), Color(255,255,255), 2)
 			else:
 				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
-		#draw_line(Vector2(0,0), grapple_point - global_position, Color(255,255,255), 2)
 func _physics_process(delta):
 	if is_dead():
 		queue_free()
@@ -100,6 +99,7 @@ func set_grapple_direction():
 			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + current_speed.x/max_speed*(45), 0.2)
 	
 func reel_in():
+	grapple_point = grapple_points[grapple_points.size()-1]
 	var grapple_vector = (grapple_point - global_position)
 	if grapple_vector.length() > grapple_length+5 and !reel_first_pass:
 		grapple_off = true
@@ -108,14 +108,12 @@ func reel_in():
 
 	grapple_length = grapple_vector.length()
 	current_speed += grapple_vector.normalized()*reel_in_speed
-	draw_grapple_hook(grapple_vector)
+	draw_grapple_hook(grapple_points[0] - global_position)
 
 func draw_grapple_hook(vect):
 	var size = vect.length()
 	var direction = vect.normalized()
 	update()
-	#$GrappleSprite.rotation_degrees = direction.angle() * 180/PI - 90
-	#$GrappleSprite.scale.y = size/($GrappleSprite.texture.get_height())
 	$GrappleCast/ArrowSprite.global_position = global_position + vect
 
 func check_for_break():
