@@ -36,7 +36,6 @@ func _draw():
 				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
 
 func _physics_process(delta):
-	print(health)
 	if is_dead():
 		queue_free()
 	move()
@@ -174,4 +173,5 @@ func attack(body):
 	body.hit()
 	if current_speed.y > 0:
 		current_speed.y = 0
-	current_speed += Vector2(1500,-1000)
+	current_speed.y -= 1000
+	current_speed.x *= 2
