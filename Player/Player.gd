@@ -61,7 +61,6 @@ func move():
 	
 	if Input.is_action_just_pressed("action") and !grappled and grapple_cooled_down:
 		#If grapple collides with _anything_ grapple that shit
-		
 		if rays_colliding():
 		#if $GrappleCast.is_colliding():
 		#	if $GrappleCast.get_collider().is_in_group("enemies"):

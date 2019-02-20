@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Enemies/SpikyFloaty.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/temp_spiky_floaty.png" type="Texture" id=2]
@@ -11,17 +11,12 @@
 custom_solver_bias = 0.0
 radius = 44.0454
 
-[sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
-radius = 93.6483
-
 [sub_resource type="CircleShape2D" id=3]
 
 custom_solver_bias = 0.0
 radius = 44.0
 
-[node name="SpikyFloaty" type="KinematicBody2D" groups=[
+[node name="SpikyFloaty" type="KinematicBody2D" index="0" groups=[
 "enemies",
 ]]
 
@@ -56,29 +51,14 @@ wait_time = 0.5
 one_shot = false
 autostart = false
 
-[node name="Area2D" type="Area2D" parent="." index="4"]
-
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
-
-shape = SubResource( 2 )
-
-[node name="ExplosionSprite" type="Sprite" parent="." index="5"]
+[node name="ExplosionSprite" type="Sprite" parent="." index="4"]
 
 visible = false
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="6"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -89,7 +69,7 @@ anims/explosion_anim = ExtResource( 4 )
 anims/shake_anim = ExtResource( 5 )
 blend_times = [  ]
 
-[node name="HurtBox" type="Area2D" parent="." index="7"]
+[node name="HurtBox" type="Area2D" parent="." index="6"]
 
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
@@ -103,13 +83,80 @@ audio_bus_name = "Master"
 
 shape = SubResource( 3 )
 
+[node name="RayCast2D" type="RayCast2D" parent="." index="7"]
+
+editor/display_folded = true
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 200 )
+collision_mask = 1
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCast2D" index="0"]
+
+rotation = 0.785398
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 150 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCast2D" index="1"]
+
+rotation = 1.5708
+enabled = true
+exclude_parent = false
+cast_to = Vector2( 0, 150 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D3" type="RayCast2D" parent="RayCast2D" index="2"]
+
+rotation = 2.35619
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 125 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D4" type="RayCast2D" parent="RayCast2D" index="3"]
+
+rotation = 3.14159
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 125 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D5" type="RayCast2D" parent="RayCast2D" index="4"]
+
+rotation = 3.92699
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 125 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D6" type="RayCast2D" parent="RayCast2D" index="5"]
+
+rotation = 4.71239
+enabled = true
+exclude_parent = true
+cast_to = Vector2( 0, 150 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
+[node name="RayCast2D7" type="RayCast2D" parent="RayCast2D" index="6"]
+
+rotation = 5.49779
+enabled = false
+exclude_parent = true
+cast_to = Vector2( 0, 150 )
+collision_mask = 1
+_sections_unfolded = [ "Transform" ]
+
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
 
 [connection signal="timeout" from="PauseTimer" to="." method="_on_PauseTimer_timeout"]
-
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
 

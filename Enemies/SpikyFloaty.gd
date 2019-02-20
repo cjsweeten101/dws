@@ -3,14 +3,16 @@ extends KinematicBody2D
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-var max_speed = 300
+var max_speed = 200
 var current_speed = Vector2(0,0)
 var target = Vector2()
 var last_direction = Vector2(0,0)
-var acceleration = 75
-var proximity_tile_pos
+var acceleration = 10
 var dir
 var grappled = false
+var proximity_point
+onready var rays = [$RayCast2D, $RayCast2D/RayCast2D7, $RayCast2D/RayCast2D6, $RayCast2D/RayCast2D6, $RayCast2D/RayCast2D5, $RayCast2D/RayCast2D5, $RayCast2D/RayCast2D4, $RayCast2D/RayCast2D4, $RayCast2D/RayCast2D3, $RayCast2D/RayCast2D2, $RayCast2D/RayCast2D]
+var proximity_move = false
 
 #Need this boy to roam around randomly.
 #Basic Implemantion with a timer?
@@ -33,32 +35,33 @@ func move(delta):
 	if $PauseTimer.is_stopped():
 		if $MoveTimer.is_stopped():
 			dir = new_dir()
-			if dir.x > 0:
-				current_speed.x = min(current_speed.x + acceleration, max_speed)
-			elif dir.x < 0:
-				current_speed.x = max(current_speed.x - acceleration, -max_speed)
-			if dir.y > 0:
-				current_speed.y = min(current_speed.y + acceleration, max_speed)
-			elif dir.y < 0:
-				current_speed.y = max(current_speed.y - acceleration, -max_speed)
 			if $MoveTimer.is_stopped():
 				$MoveTimer.start()
+		else:
+			var max_x = dir.x*max_speed
+			var max_y = dir.y*max_speed
+			current_speed.x = min(current_speed.x + acceleration, max_x)
+			current_speed.y = max(current_speed.y + acceleration, max_y)
+			current_speed = dir*max_speed
 	else:
 		current_speed.x = lerp(current_speed.x, 0, .1)
 		current_speed.y = lerp(current_speed.y, 0, .1)
 
-	proximity_check(delta)
+	proximity_check()
 	move_and_slide(current_speed)
 
-func proximity_check(delta):
-	#TODO Fix this shit obvi
-	if proximity_tile_pos != null:
-		var tile_direction = (proximity_tile_pos - global_position).normalized()
-		dir.x = rand_range(-tile_direction.x, -tile_direction.x + 1)
-		dir.y = rand_range(-tile_direction.x, -tile_direction.x + 1)
-	
-	if (global_position.y + current_speed.y*delta) < 0:
-		pass
+func proximity_check():
+	if !proximity_move:
+		for ray in rays:
+			if ray.is_colliding():
+				if ray.get_collider().is_in_group("tiles"):
+					proximity_point = ray.get_collision_point()
+					var opposite_direction = -(proximity_point - global_position).normalized()
+					dir.x = rand_range(opposite_direction.x - .75, opposite_direction.x + .75)
+					dir.y = rand_range(opposite_direction.y - .75, opposite_direction.y + .75)
+					dir = dir.normalized()
+					proximity_move = true
+					return
 
 func new_dir():
 	var rand_dir = Vector2()
@@ -82,18 +85,10 @@ func _on_MoveTimer_timeout():
 
 
 func _on_PauseTimer_timeout():
+	proximity_move = false
 	$PauseTimer.stop()
 	$PauseTimer.wait_time = rand_range(.5,1)
 
-
-func _on_Area2D_body_entered(body):
-	if body.is_in_group("tiles"):
-		proximity_tile_pos = body.global_position
-
-
-func _on_Area2D_body_exited(body):
-	if body.is_in_group("tiles"):
-		proximity_tile_pos = null
 
 #Idea, pause when grappled.  Then shake a bit (anim), then explode (anim)
 func grapple_hit():
