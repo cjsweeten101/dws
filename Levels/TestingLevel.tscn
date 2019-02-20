@@ -1,12 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemies/SpikyFloaty.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemies/SoftWalky.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/RootUI.tscn" type="PackedScene" id=6]
 
-[node name="TestingLevel" type="Node2D"]
+[node name="TestingLevel" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -76,5 +77,15 @@ position = Vector2( 898, 273 )
 [node name="SoftWalky" parent="." index="4" instance=ExtResource( 5 )]
 
 position = Vector2( 1190, 598 )
+
+[node name="UI" type="CanvasLayer" parent="." index="5"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+
+[node name="RootUI" parent="UI" index="0" instance=ExtResource( 6 )]
 
 

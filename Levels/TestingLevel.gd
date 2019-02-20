@@ -3,6 +3,7 @@ extends Node2D
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+var game_over = false
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -10,5 +11,12 @@ func _ready():
 	pass
 
 func _process(delta):
-	if $Player != null:
+	if !game_over:
+		$UI/RootUI.ui_health($Player.get_health())
 		$Camera.position.x = $Player.position.x
+	check_for_game_over()
+
+func check_for_game_over():
+	if !game_over and $Player.get_health() == 0:
+		$Player.queue_free()
+		game_over = true

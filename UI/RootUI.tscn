@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/RootUI.gd" type="Script" id=1]
+[ext_resource path="res://UI/TopBar.tscn" type="PackedScene" id=2]
+
+[node name="RootUI" type="Node2D"]
+
+script = ExtResource( 1 )
+
+[node name="TopBar" parent="." index="0" instance=ExtResource( 2 )]
+
+

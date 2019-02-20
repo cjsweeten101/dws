@@ -38,8 +38,6 @@ func _draw():
 				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
 
 func _physics_process(delta):
-	if is_dead():
-		queue_free()
 	move()
 	if $MissDisplay.is_stopped():
 		set_grapple_direction()
@@ -179,9 +177,6 @@ func add_health(amt):
 func remove_health(amt):
 	health -= amt
 
-func is_dead():
-	return health <= 0
-
 func _on_HurtBox_body_entered(body):
 	if body.is_in_group("soft"):
 		attack(body)
@@ -195,3 +190,6 @@ func attack(body):
 
 func is_grappled():
 	return grappled
+
+func get_health():
+	return health
