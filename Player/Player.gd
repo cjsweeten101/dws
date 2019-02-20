@@ -190,8 +190,8 @@ func attack(body):
 	body.hit()
 	if current_speed.y > 0:
 		current_speed.y = 0
-	current_speed.y -= 1000
-	current_speed.x *= 2
+	current_speed.y -= 700
+	current_speed.x *= 3.5
 
 func is_grappled():
 	return grappled
