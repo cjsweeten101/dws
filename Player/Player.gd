@@ -24,6 +24,7 @@ var health = 3
 var new_grapple_point
 var grapple_points = []
 onready var rays = [$GrappleCast, $GrappleCast/EdgeRay1, $GrappleCast/EdgeRay2]
+var i_frames_active = false
 
 
 func ready():
@@ -174,7 +175,9 @@ func add_health(amt):
 	health += amt
 
 func remove_health(amt):
-	health -= amt
+	if !i_frames_active:
+		$AnimationPlayer.play("hurt_anim")
+		health -= amt
 
 func _on_HurtBox_body_entered(body):
 	if body.is_in_group("soft"):
@@ -192,3 +195,6 @@ func is_grappled():
 
 func get_health():
 	return health
+
+func i_frames(status):
+	i_frames_active = status

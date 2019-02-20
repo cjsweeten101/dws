@@ -7,7 +7,7 @@
 [ext_resource path="res://Enemies/SoftWalky.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/RootUI.tscn" type="PackedScene" id=6]
 
-[node name="TestingLevel" type="Node2D"]
+[node name="TestingLevel" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -68,7 +68,7 @@ drag_margin_bottom = 0.2
 editor_draw_screen = true
 editor_draw_limits = false
 editor_draw_drag_margin = false
-_sections_unfolded = [ "Limit", "Smoothing", "Transform" ]
+_sections_unfolded = [ "Limit", "Offset", "Smoothing", "Transform" ]
 
 [node name="SpikyFloaty" parent="." index="3" instance=ExtResource( 4 )]
 
@@ -87,5 +87,14 @@ scale = Vector2( 1, 1 )
 transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 
 [node name="RootUI" parent="UI" index="0" instance=ExtResource( 6 )]
+
+[node name="ShakeTimer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 0.07
+one_shot = false
+autostart = false
+
+[connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
 
 
