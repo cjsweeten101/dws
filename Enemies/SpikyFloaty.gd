@@ -97,8 +97,10 @@ func grapple_hit():
 	current_speed = Vector2(0,0)
 
 func explode():
+	$CollisionShape2D.disabled = true
 	$AnimationPlayer.play("explosion_anim")
 
 func _on_HurtBox_body_entered(body):
 	if body.is_in_group("player"):
-		body.remove_health(1)
+		if !grappled:
+			body.remove_health(1)
