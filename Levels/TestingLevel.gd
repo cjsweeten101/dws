@@ -27,6 +27,10 @@ func _process(delta):
 
 	shake_cam()
 	check_for_game_over()
+	if check_for_win():
+		if !game_over:
+			$Player.queue_free()
+		game_over = true
 
 func shake_cam():
 	if !game_over and player_health != $Player.get_health():
@@ -36,6 +40,8 @@ func shake_cam():
 
 func check_for_game_over():
 	if !game_over and $Player.get_health() == 0:
+		$Label.rect_position = $Camera.global_position
+		$Label.text = "You Loose! Press enter to play again!"
 		$Player.queue_free()
 		game_over = true
 
@@ -43,3 +49,10 @@ func check_for_game_over():
 func _on_ShakeTimer_timeout():
 	$Camera.offset = Vector2(0,0)
 	$ShakeTimer.stop()
+
+func check_for_win():
+	if !game_over:
+		if $WinZone.get_win_state() == true:
+			$Label.rect_position = $Camera.global_position - Vector2(300,0)
+			$Label.text = "You win! Press enter to play again!"
+			return true
