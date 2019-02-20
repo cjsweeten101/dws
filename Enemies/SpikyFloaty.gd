@@ -7,7 +7,7 @@ var max_speed = 200
 var current_speed = Vector2(0,0)
 var target = Vector2()
 var last_direction = Vector2(0,0)
-var acceleration = 10
+var acceleration = 5
 var dir
 var grappled = false
 var proximity_point
@@ -41,11 +41,11 @@ func move(delta):
 			var max_x = dir.x*max_speed
 			var max_y = dir.y*max_speed
 			current_speed.x = min(current_speed.x + acceleration, max_x)
-			current_speed.y = max(current_speed.y + acceleration, max_y)
+			current_speed.y = max(current_speed.y - acceleration, -max_y)
 			current_speed = dir*max_speed
 	else:
-		current_speed.x = lerp(current_speed.x, 0, .1)
-		current_speed.y = lerp(current_speed.y, 0, .1)
+		current_speed.x = lerp(current_speed.x, 0, .05)
+		current_speed.y = lerp(current_speed.y, 0, .05)
 
 	proximity_check()
 	move_and_slide(current_speed)
@@ -53,7 +53,7 @@ func move(delta):
 func proximity_check():
 	if !proximity_move:
 		for ray in rays:
-			if ray.is_colliding():
+			if ray.is_colliding() and ray.get_collider() != null:
 				if ray.get_collider().is_in_group("tiles"):
 					proximity_point = ray.get_collision_point()
 					var opposite_direction = -(proximity_point - global_position).normalized()
@@ -79,7 +79,7 @@ func new_dir():
 	
 func _on_MoveTimer_timeout():
 	$MoveTimer.stop()
-	$MoveTimer.wait_time = rand_range(.5,1.5)
+	$MoveTimer.wait_time = rand_range(.5,1)
 	if $PauseTimer.is_stopped():
 		$PauseTimer.start()
 
