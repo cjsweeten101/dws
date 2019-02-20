@@ -14,6 +14,9 @@ func _process(delta):
 	if !game_over:
 		$UI/RootUI.ui_health($Player.get_health())
 		$Camera.position.x = $Player.position.x
+	else:
+		if Input.is_action_pressed("action"):
+			get_tree().reload_current_scene()
 	check_for_game_over()
 
 func check_for_game_over():
