@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
@@ -6,9 +6,10 @@
 [ext_resource path="res://UI/RootUI.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Enemies/SoftWalky.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Enemies/SpikyFloaty.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Levels/WinZone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/SoftThrowy/SoftThrowy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Levels/WinZone.tscn" type="PackedScene" id=8]
 
-[node name="TestingLevel" type="Node2D" index="0"]
+[node name="TestingLevel" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
@@ -151,7 +152,13 @@ position = Vector2( 4269, 441 )
 
 position = Vector2( 1726, 391 )
 
-[node name="WinZone" parent="." index="7" instance=ExtResource( 7 )]
+[node name="SoftThrowy" parent="Enemies" index="8" groups=[
+"soft",
+] instance=ExtResource( 7 )]
+
+position = Vector2( 2150, 896 )
+
+[node name="WinZone" parent="." index="7" instance=ExtResource( 8 )]
 
 position = Vector2( 4559, 480 )
 scale = Vector2( 1, 4.78125 )
