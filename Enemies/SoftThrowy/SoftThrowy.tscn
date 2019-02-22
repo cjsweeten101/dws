@@ -27,6 +27,7 @@ _sections_unfolded = [ "Collision" ]
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
 texture = ExtResource( 2 )
+_sections_unfolded = [ "Visibility" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 
@@ -62,6 +63,15 @@ visible = false
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 4 )
 
+[node name="ThrowTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
+
+[connection signal="timeout" from="ThrowTimer" to="." method="_on_ThrowTimer_timeout"]
 
 

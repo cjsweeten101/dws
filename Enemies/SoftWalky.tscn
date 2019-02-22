@@ -68,6 +68,13 @@ visible = false
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 4 )
 
+[node name="ThrowTimer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
 
 

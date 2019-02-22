@@ -124,17 +124,14 @@ position = Vector2( 1190, 598 )
 [node name="SoftWalky2" parent="Enemies" index="1" instance=ExtResource( 5 )]
 
 position = Vector2( 3150, 406 )
-scale = Vector2( 0.8, 0.8 )
 
 [node name="SoftWalky3" parent="Enemies" index="2" instance=ExtResource( 5 )]
 
 position = Vector2( 2463, 22 )
-scale = Vector2( 0.8, 0.8 )
 
 [node name="SoftWalky4" parent="Enemies" index="3" instance=ExtResource( 5 )]
 
 position = Vector2( 3847, 262 )
-scale = Vector2( 0.8, 0.8 )
 
 [node name="SpikyFloaty" parent="Enemies" index="4" instance=ExtResource( 6 )]
 
@@ -156,7 +153,7 @@ position = Vector2( 1726, 391 )
 "soft",
 ] instance=ExtResource( 7 )]
 
-position = Vector2( 2150, 896 )
+position = Vector2( 883, 896 )
 
 [node name="WinZone" parent="." index="7" instance=ExtResource( 8 )]
 

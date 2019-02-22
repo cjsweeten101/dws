@@ -4,17 +4,21 @@ extends KinematicBody2D
 # var a = 2
 # var b = "textvar"
 var direction = 1
+var ball = preload("res://Enemies/SoftThrowy/ThrowableBall.tscn")
+var throw = true
 
-func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	pass
+func _physics_process(delta):
+	if throw:
+		throw()
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-
+func throw():
+	var new_ball = ball.instance()
+	add_child(new_ball)
+	new_ball.set_launch_speed(Vector2(-500,-1100))
+	throw = false
+	if $ThrowTimer.is_stopped():
+		$ThrowTimer.start()
+	
 func turn_around():
 	self.scale.x *= -1
 	direction *= -1
@@ -27,3 +31,7 @@ func _on_HurtBox_body_entered(body):
 func hit():
 	print('trying to hit')
 	$AnimationPlayer.play("explosion_anim")
+
+func _on_ThrowTimer_timeout():
+	$ThrowTimer.stop()
+	throw = true
