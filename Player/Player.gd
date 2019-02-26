@@ -25,6 +25,12 @@ var new_grapple_point
 var grapple_points = []
 onready var rays = [$GrappleCast, $GrappleCast/EdgeRay1, $GrappleCast/EdgeRay2]
 var i_frames_active = false
+var touch_right = false
+var touch_left = false
+var action_pressed = false
+
+var touch_action = false
+var touch_release = false
 
 
 func ready():
@@ -51,17 +57,17 @@ func move():
 	current_speed += gravity
 	current_speed = move_and_slide(current_speed, UP)
 
-	if Input.is_action_pressed("right"):
+	if Input.is_action_pressed("right") or touch_right:
 		current_speed.x = min(current_speed.x + acceleration, max_speed)
 		direction = 1
-	elif Input.is_action_pressed("left"):
+	elif Input.is_action_pressed("left") or touch_left:
 		current_speed.x = max(current_speed.x - acceleration, -max_speed)
 		direction = -1
 	else:
 		friction = true
 	
-	if Input.is_action_just_pressed("action") and !grappled and grapple_cooled_down:
-		#If grapple collides with _anything_ grapple that shit
+	if (Input.is_action_just_pressed("action") or touch_action) and !grappled and grapple_cooled_down:
+		touch_action = false
 		if rays_colliding():
 		#if $GrappleCast.is_colliding():
 		#	if $GrappleCast.get_collider().is_in_group("enemies"):
@@ -69,7 +75,8 @@ func move():
 			set_grappled(true, get_ray_collision_point())
 		else:
 			draw_miss()
-	elif Input.is_action_just_released("action") or grapple_off:
+	elif (Input.is_action_just_released("action") or touch_release) or grapple_off:
+		touch_release = false
 		set_grappled(false, 0)
 		grapple_off = false
 		
@@ -162,6 +169,7 @@ func set_grappled(booly, point):
 
 func _on_GrappleCoolDown_timeout():
 	grapple_cooled_down = true
+	touch_action = false
 
 
 func _on_MissDisplay_timeout():
@@ -198,3 +206,19 @@ func get_health():
 
 func i_frames(status):
 	i_frames_active = status
+
+func move_right():
+	touch_right = true
+
+func move_left():
+	touch_left = true
+
+func reset_move():
+	touch_left = false
+	touch_right = false
+
+func action():
+	touch_action = true
+
+func release_action():
+	touch_release = true

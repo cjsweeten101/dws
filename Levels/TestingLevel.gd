@@ -1,17 +1,19 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 var game_over = false
 onready var player_health = $Player.get_health()
 var shake_amount = 13
+var action_pressed = false
+var action_released = false
 
 func _ready():
 	pass
 	
 func _process(delta):
+
 	if !game_over:
+		touch_move()
 		$UI/RootUI.ui_health($Player.get_health())
 	else:
 		if Input.is_action_pressed("action"):
@@ -31,6 +33,24 @@ func _process(delta):
 		if !game_over:
 			$Player.queue_free()
 		game_over = true
+
+func touch_move():
+	if $UI/RootUI.right_pressed():
+		$Player.move_right()
+	elif $UI/RootUI.left_pressed():
+		$Player.move_left()
+	else:
+		$Player.reset_move()
+	
+	if $UI/RootUI.action_pressed() and !action_pressed:
+		$Player.action()
+		action_pressed = true
+		action_released = false
+	
+	elif !$UI/RootUI.action_pressed() and !action_released:
+		$Player.release_action()
+		action_pressed = false
+		action_released = true
 
 func shake_cam():
 	if !game_over and player_health != $Player.get_health():

@@ -1,15 +1,10 @@
 extends MarginContainer
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+func right_pressed():
+	return $HBoxContainer/Arrows/Right.pressed
 
-func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	pass
+func left_pressed():
+	return $HBoxContainer/Arrows/Left.pressed
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+func action_pressed():
+	return $HBoxContainer/MarginContainer/Action.pressed

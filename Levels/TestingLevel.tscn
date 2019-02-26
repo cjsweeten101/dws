@@ -9,7 +9,7 @@
 [ext_resource path="res://Enemies/SoftThrowy/SoftThrowy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Levels/WinZone.tscn" type="PackedScene" id=8]
 
-[node name="TestingLevel" type="Node2D"]
+[node name="TestingLevel" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]

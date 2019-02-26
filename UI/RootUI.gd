@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 # class member variables go here, for example:
 # var a = 2
@@ -9,10 +9,14 @@ func _ready():
 	# Initialization here
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
-
 func ui_health(val):
 	$TopBar.set_health(val)
+
+func right_pressed():
+	return $ButtonsUI.right_pressed()
+
+func left_pressed():
+	return $ButtonsUI.left_pressed()
+
+func action_pressed():
+	return $ButtonsUI.action_pressed()
