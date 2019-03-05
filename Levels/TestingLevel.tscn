@@ -113,6 +113,7 @@ _sections_unfolded = [ "Collision", "Material", "Transform" ]
 
 [node name="Enemies" type="Node2D" parent="." index="6"]
 
+editor/display_folded = true
 __meta__ = {
 "_edit_lock_": true
 }

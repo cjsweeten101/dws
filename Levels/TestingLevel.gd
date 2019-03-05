@@ -16,7 +16,7 @@ func _process(delta):
 		touch_move()
 		$UI/RootUI.ui_health($Player.get_health())
 	else:
-		if Input.is_action_pressed("action"):
+		if Input.is_action_pressed("action") or $UI/RootUI.action_pressed():
 			get_tree().reload_current_scene()
 	#Refactor big boi
 	if !game_over and $ShakeTimer.is_stopped():

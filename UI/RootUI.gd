@@ -13,10 +13,10 @@ func ui_health(val):
 	$TopBar.set_health(val)
 
 func right_pressed():
-	return $ButtonsUI.right_pressed()
+	return $TouchButtonUI.right_pressed()
 
 func left_pressed():
-	return $ButtonsUI.left_pressed()
+	return $TouchButtonUI.left_pressed()
 
 func action_pressed():
-	return $ButtonsUI.action_pressed()
+	return $TouchButtonUI.action_pressed()

@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://TouchButtonUI.gd" type="Script" id=1]
+[ext_resource path="res://UI/default_arrow_left.png" type="Texture" id=2]
+[ext_resource path="res://UI/default_arrow_right.png" type="Texture" id=3]
+[ext_resource path="res://Player/default_square.png" type="Texture" id=4]
+
+[node name="TouchButtonUI" type="Node2D"]
+
+script = ExtResource( 1 )
+margin = 150
+button_spacing = 300
+
+[node name="Left" type="TouchScreenButton" parent="." index="0"]
+
+scale = Vector2( 4, 4 )
+normal = ExtResource( 2 )
+pressed = ExtResource( 2 )
+bitmask = null
+shape = null
+shape_centered = true
+shape_visible = true
+passby_press = false
+action = ""
+visibility_mode = 0
+_sections_unfolded = [ "Transform", "Visibility" ]
+
+[node name="Right" type="TouchScreenButton" parent="." index="1"]
+
+scale = Vector2( 4, 4 )
+normal = ExtResource( 3 )
+pressed = null
+bitmask = null
+shape = null
+shape_centered = true
+shape_visible = true
+passby_press = false
+action = ""
+visibility_mode = 0
+_sections_unfolded = [ "Transform" ]
+
+[node name="Action" type="TouchScreenButton" parent="." index="2"]
+
+scale = Vector2( 2.5, 2.5 )
+normal = ExtResource( 4 )
+pressed = null
+bitmask = null
+shape = null
+shape_centered = true
+shape_visible = true
+passby_press = false
+action = ""
+visibility_mode = 0
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+
