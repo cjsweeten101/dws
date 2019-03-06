@@ -31,9 +31,14 @@ var action_pressed = false
 
 var touch_action = false
 var touch_release = false
+onready var default_weapon = preload("res://Player/Hooks/BasicWeapon.tscn")
+var current_weapon
 
+var just_grappled
 
-func ready():
+func _ready():
+	current_weapon = default_weapon.instance()
+	add_child(current_weapon)
 	current_speed = move_and_slide(gravity, UP)
 
 func _draw():
@@ -45,6 +50,7 @@ func _draw():
 				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
 
 func _physics_process(delta):
+	current_weapon.set_rotation(current_speed.x)
 	move()
 	if $MissDisplay.is_stopped():
 		set_grapple_direction()
@@ -68,6 +74,8 @@ func move():
 	
 	if (Input.is_action_just_pressed("action") or touch_action) and !grappled and grapple_cooled_down:
 		touch_action = false
+		#So the grapple_object should handle all diss
+		current_weapon.fire()
 		if rays_colliding():
 		#if $GrappleCast.is_colliding():
 		#	if $GrappleCast.get_collider().is_in_group("enemies"):
@@ -77,10 +85,13 @@ func move():
 			draw_miss()
 	elif (Input.is_action_just_released("action") or touch_release) or grapple_off:
 		touch_release = false
+		#And dis guy right here
+		current_weapon.release()
 		set_grappled(false, 0)
 		grapple_off = false
 		
 	if friction == true:
+		#oooo gunna have to return a grappled young guy maybe?
 		if grappled:
 			current_speed.x = lerp(current_speed.x, 0, grapple_friction)
 		elif is_on_floor():
@@ -88,6 +99,7 @@ func move():
 		else:
 			current_speed.x = lerp(current_speed.x, 0, air_friction)
 
+#Dis def go right in der
 func rays_colliding():
 	for ray in rays:
 		if ray.is_colliding():
@@ -96,6 +108,7 @@ func rays_colliding():
 			return true
 	return false
 
+#And Dis
 func get_ray_collision_point():
 	var points = []
 	for ray in rays:
@@ -103,6 +116,7 @@ func get_ray_collision_point():
 			points.append(ray.get_collision_point())
 	return points[0]
 
+#Dis guy as well
 func draw_miss():
 	var angle = $GrappleCast.rotation
 	grapple_points.append($GrappleCast/ArrowSprite.global_position + (Vector2(0,1).rotated(angle)*275))
@@ -110,6 +124,7 @@ func draw_miss():
 	if $MissDisplay.is_stopped():
 		$MissDisplay.start()
 
+#ooo a scary one
 func set_grapple_direction():
 	if grappled:
 		just_released = true
@@ -120,7 +135,8 @@ func set_grapple_direction():
 				just_released = false
 		else:
 			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + current_speed.x/max_speed*(45), 0.2)
-	
+
+#Also scary
 func reel_in():
 	grapple_point = grapple_points[grapple_points.size()-1]
 	var grapple_vector = (grapple_point - global_position)
@@ -133,12 +149,14 @@ func reel_in():
 	current_speed += grapple_vector.normalized()*reel_in_speed
 	draw_grapple_hook(grapple_points[0] - global_position)
 
+#Yuuuup
 func draw_grapple_hook(vect):
 	var size = vect.length()
 	var direction = vect.normalized()
 	$GrappleCast/ArrowSprite.global_position = global_position + vect
 	update()
-	
+
+#Wow so much code gunna leave the player	
 func check_for_break():
 	if $GrappleCast.is_colliding():
 		if $GrappleCast.get_collision_point().round() != grapple_point.round():
@@ -148,6 +166,7 @@ func check_for_break():
 				if round($GrappleCast.get_collision_point().y) != round(grapple_points[grapple_points.size() - 1].y):
 					grapple_points.append($GrappleCast.get_collision_point())
 
+#Jesus H Christ
 func set_grappled(booly, point):
 	if booly == true:
 		$GrappleCast/AimingSprite.visible = false
