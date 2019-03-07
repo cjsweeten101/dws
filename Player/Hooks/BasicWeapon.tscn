@@ -4,7 +4,7 @@
 [ext_resource path="res://Player/default_arrow.png" type="Texture" id=2]
 [ext_resource path="res://Player/aiming_sprite.png" type="Texture" id=3]
 
-[node name="BasicWeapon" type="Node2D"]
+[node name="BasicWeapon" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
