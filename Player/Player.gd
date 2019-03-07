@@ -34,29 +34,36 @@ var touch_release = false
 onready var default_weapon = preload("res://Player/Hooks/BasicWeapon.tscn")
 var current_weapon
 
-var just_grappled
+var just_grappled = true
+var just_rel = false
 
 func _ready():
 	current_weapon = default_weapon.instance()
 	add_child(current_weapon)
 	current_speed = move_and_slide(gravity, UP)
 
-func _draw():
-	if grapple_points != null:
-		for i in range (0, grapple_points.size()):
-			if i == grapple_points.size() - 1:
-				draw_line(grapple_points[i] - global_position, Vector2(0,0), Color(255,255,255), 2)
-			else:
-				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
+#func _draw():
+#	if grapple_points != null:
+#		for i in range (0, grapple_points.size()):
+#			if i == grapple_points.size() - 1:
+#				draw_line(grapple_points[i] - global_position, Vector2(0,0), Color(255,255,255), 2)
+#			else:
+#				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
 
 func _physics_process(delta):
 	current_weapon.set_rotation(current_speed.x)
+	if current_weapon.is_grappled():
+		if just_grappled:
+			current_speed.y *= current_weapon.get_elasticity()
+			just_grappled = false
+			just_rel = true
+		current_speed += current_weapon.get_reel_speed()
+	else:
+		if just_rel:
+			just_grappled = true
+			just_rel = false
+			current_speed *= current_weapon.get_grapple_boost()
 	move()
-	if $MissDisplay.is_stopped():
-		set_grapple_direction()
-	if grappled:
-		reel_in()
-		check_for_break()
 
 func move():
 	var friction = false
@@ -72,23 +79,23 @@ func move():
 	else:
 		friction = true
 	
-	if (Input.is_action_just_pressed("action") or touch_action) and !grappled and grapple_cooled_down:
+	if (Input.is_action_just_pressed("action") or touch_action):
 		touch_action = false
 		#So the grapple_object should handle all diss
 		current_weapon.fire()
-		if rays_colliding():
+		#if rays_colliding():
 		#if $GrappleCast.is_colliding():
 		#	if $GrappleCast.get_collider().is_in_group("enemies"):
 		#		$GrappleCast.get_collider().grapple_hit()
-			set_grappled(true, get_ray_collision_point())
-		else:
-			draw_miss()
-	elif (Input.is_action_just_released("action") or touch_release) or grapple_off:
+		#	set_grappled(true, get_ray_collision_point())
+		#else:
+		#	draw_miss()
+	elif (Input.is_action_just_released("action") or touch_release):
 		touch_release = false
 		#And dis guy right here
 		current_weapon.release()
-		set_grappled(false, 0)
-		grapple_off = false
+	#	set_grappled(false, 0)
+	#	grapple_off = false
 		
 	if friction == true:
 		#oooo gunna have to return a grappled young guy maybe?

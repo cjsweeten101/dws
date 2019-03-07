@@ -24,7 +24,7 @@ step = 0.1
 custom_solver_bias = 0.0
 extents = Vector2( 25, 25 )
 
-[node name="Player" type="KinematicBody2D" index="0" groups=[
+[node name="Player" type="KinematicBody2D" groups=[
 "player",
 ]]
 
@@ -48,6 +48,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="GrappleCast" type="RayCast2D" parent="." index="2"]
 
+visible = false
 rotation = 2.61799
 enabled = true
 exclude_parent = true
