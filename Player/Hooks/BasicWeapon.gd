@@ -19,6 +19,7 @@ func set_x_speed(speed):
 func _physics_process(delta):
 	set_rotation()
 	if grappled:
+		$GrappleCast/AimingSprite.visible = false
 		$GrappleCast/ArrowSprite.global_position = grapple_points[0]
 		_check_for_break()
 
@@ -61,6 +62,7 @@ func _rays_colliding():
 	return false
 
 func release():
+	$GrappleCast/AimingSprite.visible = true
 	grapple_cooled_down = false
 	grappled = false
 	grapple_points = []
