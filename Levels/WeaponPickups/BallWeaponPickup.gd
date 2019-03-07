@@ -1,13 +1,16 @@
-extends Node2D
+extends Area2D
 
 # class member variables go here, for example:
 # var a = 2
-# var b = "textvar"
+var path = "res://Player/Hooks/SpikyBallWeapon.tscn"
 
 func _ready():
-	print("ima ballll")
+	pass
 
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
+
+func get_weapon_path():
+	return path

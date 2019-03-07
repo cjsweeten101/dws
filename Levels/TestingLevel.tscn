@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Enemies/SpikyFloaty.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/SoftThrowy/SoftThrowy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Levels/WinZone.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Levels/WeaponPickups/BallWeaponPickup.tscn" type="PackedScene" id=9]
 
 [node name="TestingLevel" type="Node2D"]
 
@@ -184,6 +185,12 @@ max_lines_visible = -1
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="BallWeaponPickup" parent="." index="9" instance=ExtResource( 9 )]
+
+position = Vector2( 615, 922 )
+monitorable = true
+_sections_unfolded = [ "Collision", "Pickable", "Transform" ]
 
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
 

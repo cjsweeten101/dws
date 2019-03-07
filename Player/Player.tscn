@@ -69,6 +69,8 @@ _sections_unfolded = [ "Collision" ]
 
 shape = SubResource( 3 )
 
+[connection signal="area_entered" from="HurtBox" to="." method="_on_HurtBox_area_entered"]
+
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
 
 

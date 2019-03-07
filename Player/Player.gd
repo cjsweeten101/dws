@@ -31,6 +31,7 @@ func _ready():
 
 #Note touch screen control may be buggy after this refactor
 func _physics_process(delta):
+	print(current_weapon)
 	current_weapon.set_x_speed(current_speed.x)
 	if current_weapon.is_grappled():
 		if just_grappled:
@@ -122,3 +123,12 @@ func action():
 
 func release_action():
 	touch_release = true
+
+func _on_HurtBox_area_entered(area):
+	if area.is_in_group("WeaponPickups"):
+		switch_weapon(area.get_weapon_path())
+
+func switch_weapon(path):
+	current_weapon.queue_free()
+	current_weapon = load(path).instance()
+	add_child(current_weapon)
