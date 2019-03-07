@@ -51,7 +51,7 @@ func _ready():
 #				draw_line(grapple_points[i+1]- global_position, grapple_points[i] - global_position, Color(255,255,255), 2)
 
 func _physics_process(delta):
-	current_weapon.set_rotation(current_speed.x)
+	current_weapon.set_x_speed(current_speed.x)
 	if current_weapon.is_grappled():
 		if just_grappled:
 			current_speed.y *= current_weapon.get_elasticity()

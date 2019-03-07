@@ -49,7 +49,7 @@ _sections_unfolded = [ "Transform" ]
 [node name="GrappleCast" type="RayCast2D" parent="." index="2"]
 
 visible = false
-rotation = 2.61799
+rotation = 3.14159
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
@@ -62,7 +62,8 @@ modulate = Color( 1, 1, 1, 0.392157 )
 position = Vector2( 1, 36.3818 )
 rotation = 3.14159
 scale = Vector2( 1, -1 )
-z_index = -1
+z_index = -2
+z_as_relative = false
 texture = ExtResource( 3 )
 centered = false
 _sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]

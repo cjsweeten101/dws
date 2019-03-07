@@ -12,17 +12,20 @@ var reel_first_pass = true
 var grapple_length = 0
 var elasticity = .10
 var grapple_boost = Vector2(1.3,1.5)
+var x_speed
 
-
+func set_x_speed(speed):
+	x_speed = speed
 func _physics_process(delta):
+	set_rotation()
 	if grappled:
 		$GrappleCast/ArrowSprite.global_position = grapple_points[0]
 		_check_for_break()
 
-func set_rotation(x_speed):
+func set_rotation():
 	if grappled:
 		just_released = true
-		$GrappleCast.rotation_degrees = (grapple_point - global_position).normalized().angle()*180/PI - 90
+		$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
 	else:
 		if just_released:
 				$GrappleCast.rotation_degrees = 180 + x_speed/max_speed*(45)

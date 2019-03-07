@@ -7,6 +7,7 @@
 [node name="BasicWeapon" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="GrappleCast" type="RayCast2D" parent="." index="0"]
 
@@ -46,9 +47,10 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 modulate = Color( 1, 1, 1, 0.392157 )
 position = Vector2( -1.5, 36.3818 )
+z_index = -1
 texture = ExtResource( 3 )
 centered = false
-_sections_unfolded = [ "Offset", "Transform", "Visibility" ]
+_sections_unfolded = [ "Offset", "Transform", "Visibility", "Z Index" ]
 
 [node name="MissDisplay" type="Timer" parent="." index="1"]
 
