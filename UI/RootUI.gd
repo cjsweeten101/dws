@@ -12,6 +12,9 @@ func _ready():
 func ui_health(val):
 	$TopBar.set_health(val)
 
+func ui_ammo(val):
+	$TopBar.set_ammo(val)
+
 func right_pressed():
 	return $TouchButtonUI.right_pressed()
 

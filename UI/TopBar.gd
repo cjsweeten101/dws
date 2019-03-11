@@ -15,4 +15,7 @@ func _ready():
 #	pass
 
 func set_health(val):
-	$Health.text = "Health: " + str(val)
+	$VBoxContainer/Health.text = "Health: " + str(val)
+
+func set_ammo(val):
+	$VBoxContainer/Ammo.text = "Ammo: " + str(val)

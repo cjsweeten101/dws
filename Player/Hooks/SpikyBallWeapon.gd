@@ -13,6 +13,10 @@ var grapple_length = 0
 var elasticity = .10
 var grapple_boost = Vector2(1.3,1.5)
 var x_speed
+var current_speed = Vector2()
+var launch_speed = Vector2(75,75)
+var gravity = Vector2(0,5)
+var UP = Vector2(0,-1)
 
 func set_x_speed(speed):
 	x_speed = speed
@@ -22,6 +26,11 @@ func _physics_process(delta):
 		$GrappleCast/AimingSprite.visible = false
 		$GrappleCast/ArrowSprite.global_position = grapple_points[0]
 		_check_for_break()
+	move()
+
+func move():
+	current_speed += gravity
+	move_and_collide(current_speed)
 
 func set_rotation():
 	if grappled:
@@ -36,15 +45,10 @@ func set_rotation():
 
 func fire():
 	if !grappled and grapple_cooled_down:
-		if _rays_colliding():
-			grappled = true
-			grapple_point = _get_ray_collision_point()
-			grapple_points = [grapple_point]
-			grapple_cooled_down = false
-		else:
-			grappled = false
-			grapple_cooled_down = false
-			_draw_miss()
+		#Launch dat shit
+		$Ball.visible = true
+		current_speed = Vector2(0,1).rotated($GrappleCast.rotation)*launch_speed
+		
 
 func _get_ray_collision_point():
 	var points = []

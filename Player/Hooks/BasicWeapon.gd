@@ -13,6 +13,8 @@ var grapple_length = 0
 var elasticity = .10
 var grapple_boost = Vector2(1.3,1.5)
 var x_speed
+export var max_ammo = 10
+var ammo = 10
 
 func set_x_speed(speed):
 	x_speed = speed
@@ -35,7 +37,8 @@ func set_rotation():
 			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + x_speed/max_speed*(45), 0.2)
 
 func fire():
-	if !grappled and grapple_cooled_down:
+	if !grappled and grapple_cooled_down and ammo > 0:
+		ammo -= 1
 		if _rays_colliding():
 			grappled = true
 			grapple_point = _get_ray_collision_point()
@@ -137,3 +140,9 @@ func _on_MissDisplay_timeout():
 func _on_GrappleCoolDown_timeout():
 	grapple_cooled_down = true
 	$GrappleCoolDown.stop()
+
+func get_ammo():
+	return ammo
+
+func refill_ammo():
+	ammo = max_ammo

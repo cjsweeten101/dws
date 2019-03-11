@@ -14,6 +14,7 @@ func _process(delta):
 
 	if !game_over:
 		touch_move()
+		$UI/RootUI.ui_ammo($Player.get_ammo())
 		$UI/RootUI.ui_health($Player.get_health())
 	else:
 		if Input.is_action_pressed("action") or $UI/RootUI.action_pressed():

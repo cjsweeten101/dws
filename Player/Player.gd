@@ -31,7 +31,6 @@ func _ready():
 
 #Note touch screen control may be buggy after this refactor
 func _physics_process(delta):
-	print(current_weapon)
 	current_weapon.set_x_speed(current_speed.x)
 	if current_weapon.is_grappled():
 		if just_grappled:
@@ -47,7 +46,11 @@ func _physics_process(delta):
 			current_speed *= current_weapon.get_grapple_boost()
 	move()
 
+	if is_on_floor():
+		current_weapon.refill_ammo()
+
 func move():
+
 	var friction = false
 	current_speed += gravity
 	current_speed = move_and_slide(current_speed, UP)
@@ -75,7 +78,6 @@ func move():
 			current_speed.x = lerp(current_speed.x, 0, ground_friction)
 		else:
 			current_speed.x = lerp(current_speed.x, 0, air_friction)
-
 	
 #So this was in grapple cool down time out for some reason
 #touch_action = false
@@ -93,6 +95,7 @@ func _on_HurtBox_body_entered(body):
 		attack(body)
 
 func attack(body):
+	current_weapon.refill_ammo()
 	body.hit()
 	if current_speed.y > 0:
 		current_speed.y = 0
@@ -127,8 +130,12 @@ func release_action():
 func _on_HurtBox_area_entered(area):
 	if area.is_in_group("WeaponPickups"):
 		switch_weapon(area.get_weapon_path())
+		area.queue_free()
 
 func switch_weapon(path):
 	current_weapon.queue_free()
 	current_weapon = load(path).instance()
 	add_child(current_weapon)
+
+func get_ammo():
+	return current_weapon.get_ammo()
