@@ -3,6 +3,7 @@ extends KinematicBody2D
 var UP = Vector2(0,-1)
 var gravity = Vector2(0,40)
 var acceleration = 150
+#if you change this make sure you change it in the hooks as well, yes I know I'm dumb
 var max_speed = 700
 var ground_friction = .3
 var air_friction = .3
@@ -37,13 +38,17 @@ func _physics_process(delta):
 			current_speed.y *= current_weapon.get_elasticity()
 			just_grappled = false
 			just_rel = true
-		current_speed += current_weapon.get_reel_speed()
+		if current_weapon.hook_name == "zipline":
+			current_speed = current_weapon.get_reel_speed()
+		else:
+			current_speed += current_weapon.get_reel_speed()
 	else:
 		if just_rel:
 			touch_action = false
 			just_grappled = true
 			just_rel = false
 			current_speed *= current_weapon.get_grapple_boost()
+	
 	move()
 
 	if is_on_floor():
@@ -73,7 +78,8 @@ func move():
 		
 	if friction == true:
 		if current_weapon.is_grappled():
-			current_speed.x = lerp(current_speed.x, 0, grapple_friction)
+			pass
+			#current_speed.x = lerp(current_speed.x, 0, grapple_friction)
 		elif is_on_floor():
 			current_speed.x = lerp(current_speed.x, 0, ground_friction)
 		else:

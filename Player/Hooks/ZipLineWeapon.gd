@@ -1,9 +1,10 @@
 extends Node2D
 
+var hook_name = "zipline"
 var grapple_points = []
 onready var rays = [$GrappleCast, $GrappleCast/EdgeRay1, $GrappleCast/EdgeRay2]
 var grappled = false
-var reel_in_speed = 75
+var reel_in_speed = 1250
 var max_speed = 700
 var just_released = false
 var grapple_point
@@ -11,28 +12,21 @@ var grapple_cooled_down = true
 var reel_first_pass = true
 var grapple_length = 0
 var elasticity = .10
-var grapple_boost = Vector2(1.3,1.5)
+var grapple_boost = Vector2(2.0,1.5)
 var x_speed
-var current_speed = Vector2()
-var launch_speed = Vector2(75,75)
-var gravity = Vector2(0,5)
-var UP = Vector2(0,-1)
+export var max_ammo = 3
+var ammo = max_ammo
 
 func set_x_speed(speed):
 	x_speed = speed
 func _physics_process(delta):
-	set_rotation()
+	set_aim_rotation()
 	if grappled:
 		$GrappleCast/AimingSprite.visible = false
 		$GrappleCast/ArrowSprite.global_position = grapple_points[0]
 		_check_for_break()
-	move()
 
-func move():
-	current_speed += gravity
-	move_and_collide(current_speed)
-
-func set_rotation():
+func set_aim_rotation():
 	if grappled:
 		just_released = true
 		$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
@@ -44,11 +38,17 @@ func set_rotation():
 			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + x_speed/max_speed*(45), 0.2)
 
 func fire():
-	if !grappled and grapple_cooled_down:
-		#Launch dat shit
-		$Ball.visible = true
-		current_speed = Vector2(0,1).rotated($GrappleCast.rotation)*launch_speed
-		
+	if !grappled and grapple_cooled_down and ammo > 0:
+		ammo -= 1
+		if _rays_colliding():
+			grappled = true
+			grapple_point = _get_ray_collision_point()
+			grapple_points = [grapple_point]
+			grapple_cooled_down = false
+		else:
+			grappled = false
+			grapple_cooled_down = false
+			_draw_miss()
 
 func _get_ray_collision_point():
 	var points = []
@@ -116,8 +116,6 @@ func _draw_miss():
 		$MissDisplay.start()
 
 func _draw_grapple_hook(vect):
-	var size = vect.length()
-	var direction = vect.normalized()
 	$GrappleCast/ArrowSprite.global_position = global_position + vect
 	update()
 
@@ -141,3 +139,9 @@ func _on_MissDisplay_timeout():
 func _on_GrappleCoolDown_timeout():
 	grapple_cooled_down = true
 	$GrappleCoolDown.stop()
+
+func get_ammo():
+	return ammo
+
+func refill_ammo():
+	ammo = max_ammo

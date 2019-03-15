@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
@@ -8,190 +8,105 @@
 [ext_resource path="res://Enemies/SpikyFloaty.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/SoftThrowy/SoftThrowy.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Levels/WinZone.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Levels/WeaponPickups/BallWeaponPickup.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Levels/WeaponPickups/ZipLinePickup.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Levels/WeaponPickups/BasicWeaponPickup.tscn" type="PackedScene" id=10]
 
 [node name="TestingLevel" type="Node2D"]
-
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="TileMap" type="TileMap" parent="." index="0" groups=[
+[node name="TileMap" type="TileMap" parent="." groups=[
 "tiles",
 ]]
-
 scale = Vector2( 0.75, 0.75 )
-mode = 0
 tile_set = ExtResource( 2 )
-cell_size = Vector2( 64, 64 )
-cell_quadrant_size = 16
-cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-cell_half_offset = 2
-cell_tile_origin = 0
-cell_y_sort = false
-cell_clip_uv = false
-collision_use_kinematic = false
-collision_friction = 1.0
-collision_bounce = 0.0
 collision_layer = 1031
-collision_mask = 1
-occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray( 65535, 0, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 0, 0, 27, 0, 0, 28, 0, 0, 29, 0, 0, 30, 0, 0, 31, 0, 0, 32, 0, 0, 33, 0, 0, 34, 0, 0, 35, 0, 0, 65, 0, 0, 66, 0, 0, 67, 0, 0, 68, 0, 0, 69, 0, 0, 70, 0, 0, 71, 0, 0, 72, 0, 0, 88, 0, 0, 89, 0, 0, 90, 0, 0, 91, 0, 0, 92, 0, 0, 93, 0, 0, 94, 0, 0, 131071, 0, 0, 65559, 0, 0, 65560, 0, 0, 65561, 0, 0, 65562, 0, 0, 65563, 0, 0, 65564, 0, 0, 65565, 0, 0, 65586, 0, 0, 65587, 0, 0, 65588, 0, 0, 65589, 0, 0, 65590, 0, 0, 65601, 0, 0, 65602, 0, 0, 65603, 0, 0, 65630, 0, 0, 196607, 0, 0, 131095, 0, 0, 131096, 0, 0, 131097, 0, 0, 131122, 0, 0, 131123, 0, 0, 131124, 0, 0, 131125, 0, 0, 131126, 0, 0, 131166, 0, 0, 262143, 0, 0, 196702, 0, 0, 327679, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262238, 0, 0, 393215, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327774, 0, 0, 458751, 0, 0, 393295, 0, 0, 393296, 0, 0, 393297, 0, 0, 393298, 0, 0, 393299, 0, 0, 393300, 0, 0, 393308, 0, 0, 393309, 0, 0, 393310, 0, 0, 524287, 0, 0, 458795, 0, 0, 458796, 0, 0, 589823, 0, 0, 655359, 0, 0, 589886, 0, 0, 589887, 0, 0, 589888, 0, 0, 589889, 0, 0, 589890, 0, 0, 589891, 0, 0, 589892, 0, 0, 720895, 0, 0, 786431, 0, 0, 851967, 0, 0, 786482, 0, 0, 786483, 0, 0, 786484, 0, 0, 917503, 0, 0, 851990, 0, 0, 851991, 0, 0, 851992, 0, 0, 851993, 0, 0, 851994, 0, 0, 851995, 0, 0, 851996, 0, 0, 852062, 0, 0, 983039, 0, 0, 917598, 0, 0, 1048575, 0, 0, 983134, 0, 0, 1114111, 0, 0, 1048670, 0, 0, 1179647, 0, 0, 1114206, 0, 0, 1245183, 0, 0, 1179742, 0, 0, 1310719, 0, 0, 1245278, 0, 0, 1376255, 0, 0, 1310720, 0, 0, 1310721, 0, 0, 1310722, 0, 0, 1310723, 0, 0, 1310724, 0, 0, 1310725, 0, 0, 1310726, 0, 0, 1310727, 0, 0, 1310728, 0, 0, 1310729, 0, 0, 1310730, 0, 0, 1310731, 0, 0, 1310732, 0, 0, 1310733, 0, 0, 1310734, 0, 0, 1310735, 0, 0, 1310736, 0, 0, 1310737, 0, 0, 1310738, 0, 0, 1310739, 0, 0, 1310740, 0, 0, 1310741, 0, 0, 1310742, 0, 0, 1310743, 0, 0, 1310744, 0, 0, 1310745, 0, 0, 1310746, 0, 0, 1310747, 0, 0, 1310748, 0, 0, 1310749, 0, 0, 1310750, 0, 0, 1310751, 0, 0, 1310752, 0, 0, 1310753, 0, 0, 1310754, 0, 0, 1310755, 0, 0, 1310756, 0, 0, 1310757, 0, 0, 1310758, 0, 0, 1310759, 0, 0, 1310760, 0, 0, 1310761, 0, 0, 1310762, 0, 0, 1310763, 0, 0, 1310764, 0, 0, 1310765, 0, 0, 1310766, 0, 0, 1310767, 0, 0, 1310768, 0, 0, 1310769, 0, 0, 1310770, 0, 0, 1310771, 0, 0, 1310772, 0, 0, 1310773, 0, 0, 1310774, 0, 0, 1310775, 0, 0, 1310776, 0, 0, 1310777, 0, 0, 1310778, 0, 0, 1310779, 0, 0, 1310780, 0, 0, 1310781, 0, 0, 1310782, 0, 0, 1310783, 0, 0, 1310784, 0, 0, 1310785, 0, 0, 1310786, 0, 0, 1310787, 0, 0, 1310788, 0, 0, 1310789, 0, 0, 1310790, 0, 0, 1310791, 0, 0, 1310792, 0, 0, 1310793, 0, 0, 1310794, 0, 0, 1310795, 0, 0, 1310796, 0, 0, 1310797, 0, 0, 1310798, 0, 0, 1310799, 0, 0, 1310800, 0, 0, 1310801, 0, 0, 1310802, 0, 0, 1310803, 0, 0, 1310804, 0, 0, 1310805, 0, 0, 1310806, 0, 0, 1310807, 0, 0, 1310808, 0, 0, 1310809, 0, 0, 1310810, 0, 0, 1310811, 0, 0, 1310812, 0, 0, 1310813, 0, 0, 1310814, 0, 0, 1376323, 0, 0, 1376324, 0, 0 )
-_sections_unfolded = [ "Cell", "Collision", "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Player" parent="." index="1" instance=ExtResource( 3 )]
-
+[node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 285, 113 )
 
-[node name="Camera" type="Camera2D" parent="." index="2"]
-
+[node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 728, 400 )
-anchor_mode = 1
-rotating = false
 current = true
-zoom = Vector2( 1, 1 )
 limit_left = -50
 limit_top = 0
 limit_right = 4550
 limit_bottom = 768
-limit_smoothed = false
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
 smoothing_enabled = true
 smoothing_speed = 10.0
-offset_v = 0.0
-offset_h = 0.0
-drag_margin_left = 0.2
-drag_margin_top = 0.2
-drag_margin_right = 0.2
-drag_margin_bottom = 0.2
-editor_draw_screen = true
-editor_draw_limits = false
-editor_draw_drag_margin = false
-_sections_unfolded = [ "Limit", "Offset", "Smoothing", "Transform" ]
 
-[node name="UI" type="CanvasLayer" parent="." index="3"]
+[node name="UI" type="CanvasLayer" parent="."]
 
-layer = 1
-offset = Vector2( 0, 0 )
-rotation = 0.0
-scale = Vector2( 1, 1 )
-transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+[node name="RootUI" parent="UI" instance=ExtResource( 4 )]
 
-[node name="RootUI" parent="UI" index="0" instance=ExtResource( 4 )]
-
-[node name="ShakeTimer" type="Timer" parent="." index="4"]
-
-process_mode = 1
+[node name="ShakeTimer" type="Timer" parent="."]
 wait_time = 0.07
-one_shot = false
-autostart = false
 
-[node name="InvWalls" type="TileMap" parent="." index="5"]
-
+[node name="InvWalls" type="TileMap" parent="."]
 position = Vector2( -228, -3 )
 scale = Vector2( 0.75, 0.75 )
-mode = 0
 tile_set = ExtResource( 2 )
-cell_size = Vector2( 64, 64 )
-cell_quadrant_size = 16
-cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-cell_half_offset = 2
-cell_tile_origin = 0
-cell_y_sort = false
-cell_clip_uv = false
-collision_use_kinematic = false
-collision_friction = 1.0
-collision_bounce = 0.0
 collision_layer = 1025
 collision_mask = 1024
-occluder_light_mask = 1
 format = 1
 tile_data = PoolIntArray( -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -196605, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -196601, 0, 0, -196600, 0, 0, -196599, 0, 0, -196598, 0, 0, -196597, 0, 0, -196596, 0, 0, -196595, 0, 0, -196594, 0, 0, -196593, 0, 0, -196592, 0, 0, -196591, 0, 0, -196590, 0, 0, -196589, 0, 0, -196588, 0, 0, -196587, 0, 0, -196586, 0, 0, -196585, 0, 0, -196573, 0, 0, -196572, 0, 0, -196571, 0, 0, -196570, 0, 0, -196569, 0, 0, -196568, 0, 0, -196567, 0, 0, -196566, 0, 0, -196565, 0, 0, -196564, 0, 0, -196563, 0, 0, -196562, 0, 0, -196561, 0, 0, -196560, 0, 0, -196559, 0, 0, -196558, 0, 0, -196557, 0, 0, -196556, 0, 0, -196555, 0, 0, -196554, 0, 0, -196553, 0, 0, -196552, 0, 0, -196551, 0, 0, -196550, 0, 0, -196549, 0, 0, -196548, 0, 0, -196547, 0, 0, -196546, 0, 0, -196545, 0, 0, -196544, 0, 0, -196543, 0, 0, -196536, 0, 0, -196535, 0, 0, -196534, 0, 0, -196533, 0, 0, -196532, 0, 0, -196531, 0, 0, -196530, 0, 0, -196529, 0, 0, -196528, 0, 0, -196527, 0, 0, -196526, 0, 0, -196525, 0, 0, -196524, 0, 0, -196523, 0, 0, -196522, 0, 0, -196521, 0, 0, -196520, 0, 0, -65537, 0, 0, -131049, 0, 0, -131046, 0, 0, -131045, 0, 0, -131044, 0, 0, -131043, 0, 0, -131042, 0, 0, -131041, 0, 0, -131040, 0, 0, -131039, 0, 0, -131038, 0, 0, -131037, 0, 0, -131007, 0, 0, -131006, 0, 0, -131000, 0, 0, -130984, 0, 0, -1, 0, 0, -65513, 0, 0, -65510, 0, 0, -65501, 0, 0, -65471, 0, 0, -65464, 0, 0, -65448, 0, 0 )
-_sections_unfolded = [ "Collision", "Material", "Transform" ]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Enemies" type="Node2D" parent="." index="6"]
-
+[node name="Enemies" type="Node2D" parent="."]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="SoftWalky" parent="Enemies" index="0" instance=ExtResource( 5 )]
-
+[node name="SoftWalky" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 1190, 598 )
 
-[node name="SoftWalky2" parent="Enemies" index="1" instance=ExtResource( 5 )]
-
+[node name="SoftWalky2" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 3150, 406 )
 
-[node name="SoftWalky3" parent="Enemies" index="2" instance=ExtResource( 5 )]
-
+[node name="SoftWalky3" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 2463, 22 )
 
-[node name="SoftWalky4" parent="Enemies" index="3" instance=ExtResource( 5 )]
-
+[node name="SoftWalky4" parent="Enemies" instance=ExtResource( 5 )]
 position = Vector2( 3847, 262 )
 
-[node name="SpikyFloaty" parent="Enemies" index="4" instance=ExtResource( 6 )]
-
+[node name="SpikyFloaty" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 853, 280 )
 
-[node name="SpikyFloaty2" parent="Enemies" index="5" instance=ExtResource( 6 )]
-
+[node name="SpikyFloaty2" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 2769, 424 )
 
-[node name="SpikyFloaty4" parent="Enemies" index="6" instance=ExtResource( 6 )]
-
+[node name="SpikyFloaty4" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 4269, 441 )
 
-[node name="SpikyFloaty3" parent="Enemies" index="7" instance=ExtResource( 6 )]
-
+[node name="SpikyFloaty3" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( 1726, 391 )
 
-[node name="SoftThrowy" parent="Enemies" index="8" groups=[
+[node name="SoftThrowy" parent="Enemies" groups=[
 "soft",
 ] instance=ExtResource( 7 )]
-
 position = Vector2( 2878, 896 )
 
-[node name="WinZone" parent="." index="7" instance=ExtResource( 8 )]
-
+[node name="WinZone" parent="." instance=ExtResource( 8 )]
 position = Vector2( 4559, 480 )
 scale = Vector2( 1, 4.78125 )
 
-[node name="Label" type="Label" parent="." index="8"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="Label" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="BallWeaponPickup" parent="." index="9" instance=ExtResource( 9 )]
+[node name="ZipLinePickup" parent="." instance=ExtResource( 9 )]
+position = Vector2( 429, 907 )
 
-position = Vector2( 615, 922 )
-monitorable = true
-_sections_unfolded = [ "Collision", "Pickable", "Transform" ]
+[node name="BasicWeaponPickup" parent="." instance=ExtResource( 10 )]
+position = Vector2( 96, 894 )
 
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
-
-

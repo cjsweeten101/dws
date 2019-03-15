@@ -15,17 +15,18 @@ var grapple_boost = Vector2(1.3,1.5)
 var x_speed
 export var max_ammo = 10
 var ammo = 10
+var hook_name = "basic"
 
 func set_x_speed(speed):
 	x_speed = speed
 func _physics_process(delta):
-	set_rotation()
+	set_aim_rotation()
 	if grappled:
 		$GrappleCast/AimingSprite.visible = false
 		$GrappleCast/ArrowSprite.global_position = grapple_points[0]
 		_check_for_break()
 
-func set_rotation():
+func set_aim_rotation():
 	if grappled:
 		just_released = true
 		$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
@@ -115,8 +116,6 @@ func _draw_miss():
 		$MissDisplay.start()
 
 func _draw_grapple_hook(vect):
-	var size = vect.length()
-	var direction = vect.normalized()
 	$GrappleCast/ArrowSprite.global_position = global_position + vect
 	update()
 

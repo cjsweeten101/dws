@@ -2,9 +2,12 @@ extends Area2D
 
 # class member variables go here, for example:
 # var a = 2
-var path = "res://Player/Hooks/SpikyBallWeapon.tscn"
+# var b = "textvar"
+export var weapon_path = ""
 
 func _ready():
+	# Called when the node is added to the scene for the first time.
+	# Initialization here
 	pass
 
 #func _process(delta):
@@ -13,4 +16,4 @@ func _ready():
 #	pass
 
 func get_weapon_path():
-	return path
+	return weapon_path

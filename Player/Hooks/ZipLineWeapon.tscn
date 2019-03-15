@@ -1,28 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Player/Hooks/SpikyBallWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Player/Hooks/ZipLineWeapon.gd" type="Script" id=1]
 [ext_resource path="res://Player/default_arrow.png" type="Texture" id=2]
 [ext_resource path="res://Player/aiming_sprite.png" type="Texture" id=3]
-[ext_resource path="res://Enemies/temp_spiky_floaty.png" type="Texture" id=4]
 
-[sub_resource type="CircleShape2D" id=1]
+[node name="ZipLineWeapon" type="Node2D" index="0"]
 
-custom_solver_bias = 0.0
-radius = 31.0161
-
-[sub_resource type="CircleShape2D" id=2]
-
-custom_solver_bias = 0.0
-radius = 30.0666
-
-[node name="SpikyBallWeapon" type="KinematicBody2D" index="0"]
-
-input_pickable = false
-collision_layer = 2
-collision_mask = 2
-collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision", "Transform" ]
+_sections_unfolded = [ "Transform" ]
+max_ammo = 3
 
 [node name="GrappleCast" type="RayCast2D" parent="." index="0"]
 
@@ -34,7 +20,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="EdgeRay1" type="RayCast2D" parent="GrappleCast" index="0"]
 
-position = Vector2( 55, 30 )
+position = Vector2( 65, 35 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
@@ -43,7 +29,7 @@ _sections_unfolded = [ "Transform" ]
 
 [node name="EdgeRay2" type="RayCast2D" parent="GrappleCast" index="1"]
 
-position = Vector2( -55, 30 )
+position = Vector2( -65, 35 )
 enabled = true
 exclude_parent = true
 cast_to = Vector2( 0, 1000 )
@@ -80,31 +66,6 @@ process_mode = 1
 wait_time = 0.1
 one_shot = false
 autostart = false
-
-[node name="Ball" type="Sprite" parent="." index="3"]
-
-visible = false
-modulate = Color( 0, 0, 0, 1 )
-texture = ExtResource( 4 )
-_sections_unfolded = [ "Visibility" ]
-
-[node name="HurtBox" type="Area2D" parent="Ball" index="0"]
-
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball/HurtBox" index="0"]
-
-shape = SubResource( 1 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
-
-shape = SubResource( 2 )
 
 [connection signal="timeout" from="MissDisplay" to="." method="_on_MissDisplay_timeout"]
 
