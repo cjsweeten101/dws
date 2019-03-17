@@ -6,7 +6,8 @@ var grappled = false
 var reel_in_speed = 75
 var max_speed = 700
 var just_released = false
-var grapple_point
+var grapple_point_1
+var grapple_point_2
 var grapple_cooled_down = true
 var reel_first_pass = true
 var grapple_length = 0
@@ -15,10 +16,11 @@ var grapple_boost = Vector2(1.3,1.5)
 var x_speed
 export var max_ammo = 10
 var ammo = 10
-var hook_name = ""
+var hook_name = "MultipleHooks"
 
 func set_x_speed(speed):
 	x_speed = speed
+
 func _physics_process(delta):
 	set_aim_rotation()
 	if grappled:
@@ -29,7 +31,7 @@ func _physics_process(delta):
 func set_aim_rotation():
 	if grappled:
 		just_released = true
-		$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
+		#$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
 	else:
 		if just_released:
 				$GrappleCast.rotation_degrees = 180 + x_speed/max_speed*(45)
@@ -42,8 +44,9 @@ func fire():
 		ammo -= 1
 		if _rays_colliding():
 			grappled = true
-			grapple_point = _get_ray_collision_point()
-			grapple_points = [grapple_point]
+			grapple_point_1 = _get_ray_collision_point()[0]
+			grapple_point_2 = _get_ray_collision_point()[1]
+			#grapple_points = [grapple_point]
 			grapple_cooled_down = false
 		else:
 			grappled = false
@@ -55,7 +58,7 @@ func _get_ray_collision_point():
 	for ray in rays:
 		if ray.is_colliding():
 			points.append(ray.get_collision_point())
-	return points[0]
+	return points
 
 func _rays_colliding():
 	for ray in rays:
@@ -70,7 +73,8 @@ func release():
 	grapple_cooled_down = false
 	grappled = false
 	grapple_points = []
-	grapple_point = null
+	grapple_point_1 = null
+	grapple_point_2 = null
 	reel_first_pass = true
 	$GrappleCast/ArrowSprite.position = Vector2(0.095701,36.381802)
 	if $GrappleCoolDown.is_stopped():

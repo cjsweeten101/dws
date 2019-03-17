@@ -7,7 +7,7 @@ var acceleration = 150
 var max_speed = 700
 var ground_friction = .3
 var air_friction = .3
-var grapple_friction = .3
+var grapple_friction = .1
 var current_speed = Vector2(0,0)
 var direction = 1
 var health = 3
@@ -78,8 +78,7 @@ func move():
 		
 	if friction == true:
 		if current_weapon.is_grappled():
-			pass
-			#current_speed.x = lerp(current_speed.x, 0, grapple_friction)
+			current_speed.x = lerp(current_speed.x, 0, grapple_friction)
 		elif is_on_floor():
 			current_speed.x = lerp(current_speed.x, 0, ground_friction)
 		else:

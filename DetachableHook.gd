@@ -15,7 +15,7 @@ var grapple_boost = Vector2(1.3,1.5)
 var x_speed
 export var max_ammo = 10
 var ammo = 10
-var hook_name = ""
+var hook_name = "basic"
 
 func set_x_speed(speed):
 	x_speed = speed

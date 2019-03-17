@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Levels/WeaponPickups/BaseWeaponPickup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://MultipleHooksPickuo.gd" type="Script" id=2]
+
+[node name="MultipleHooksPickuo" instance=ExtResource( 1 )]
+modulate = Color( 1, 0, 0.988235, 1 )
+script = ExtResource( 2 )
+weapon_path = "res://Player/Hooks/MultipleHooks.tscn"
+
