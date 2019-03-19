@@ -41,6 +41,7 @@ func _physics_process(delta):
 		if current_weapon.hook_name == "zipline":
 			current_speed = current_weapon.get_reel_speed()
 		else:
+			#Accelration, reel_speed is a func, of speed.  May want to switch to constant speed?
 			current_speed += current_weapon.get_reel_speed()
 	else:
 		if just_rel:

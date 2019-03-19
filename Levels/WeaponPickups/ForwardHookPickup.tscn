@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Levels/WeaponPickups/BaseWeaponPickup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ForwardHookPickup.gd" type="Script" id=2]
+
+[node name="ForwardHookPickup" instance=ExtResource( 1 )]
+modulate = Color( 0.992157, 0, 0.184314, 1 )
+script = ExtResource( 2 )
+weapon_path = "res://Player/Hooks/ForwardHook.tscn"
+
