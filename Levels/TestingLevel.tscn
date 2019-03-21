@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Levels/WeaponPickups/DetachableHookPickup.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Levels/WeaponPickups/MultipleHooksPickuo.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Levels/WeaponPickups/ForwardHookPickup.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Levels/WeaponPickups/UpsideDownPickup.tscn" type="PackedScene" id=14]
 
 [node name="TestingLevel" type="Node2D"]
 script = ExtResource( 1 )
@@ -107,18 +108,21 @@ __meta__ = {
 }
 
 [node name="ZipLinePickup" parent="." instance=ExtResource( 9 )]
-position = Vector2( 429, 907 )
+position = Vector2( 219, 921 )
 
 [node name="BasicWeaponPickup" parent="." instance=ExtResource( 10 )]
-position = Vector2( 96, 894 )
+position = Vector2( 38, 921 )
 
 [node name="DetachableHookPickup" parent="." instance=ExtResource( 11 )]
-position = Vector2( 259, 910 )
+position = Vector2( 123, 924 )
 
 [node name="MultipleHooksPickuo" parent="." instance=ExtResource( 12 )]
-position = Vector2( 559, 914 )
+position = Vector2( 317, 918 )
 
 [node name="ForwardHookPickup" parent="." instance=ExtResource( 13 )]
-position = Vector2( 719, 923 )
+position = Vector2( 400, 915 )
+
+[node name="UpsideDownPickup" parent="." instance=ExtResource( 14 )]
+position = Vector2( 485, 921 )
 
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]

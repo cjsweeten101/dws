@@ -29,7 +29,6 @@ func _on_HurtBox_body_entered(body):
 			body.remove_health(1)
 
 func hit():
-	print('trying to hit')
 	$AnimationPlayer.play("explosion_anim")
 
 func _on_ThrowTimer_timeout():
