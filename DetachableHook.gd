@@ -16,6 +16,7 @@ var x_speed
 export var max_ammo = 10
 var ammo = 10
 var hook_name = "basic"
+var preloaded_hook = preload("res://Player/Hooks/DetachedHook.tscn")
 
 func set_x_speed(speed):
 	x_speed = speed
@@ -41,10 +42,13 @@ func fire():
 	if !grappled and grapple_cooled_down and ammo > 0:
 		ammo -= 1
 		if _rays_colliding():
-			grappled = true
-			grapple_point = _get_ray_collision_point()
-			grapple_points = [grapple_point]
-			grapple_cooled_down = false
+			var new_line = preloaded_hook.instance()
+			get_parent().get_parent().add_child(new_line)
+			new_line.set_polyline(_get_ray_collision_point(), global_position, $GrappleCast.rotation)
+			#grappled = true
+			#grapple_point = _get_ray_collision_point()
+			#grapple_points = [grapple_point]
+			#grapple_cooled_down = false
 		else:
 			grappled = false
 			grapple_cooled_down = false

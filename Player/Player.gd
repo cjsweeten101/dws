@@ -23,6 +23,7 @@ var current_weapon
 
 var just_grappled = true
 var just_rel = false
+var grabbed = false
 
 func _ready():
 	current_weapon = default_weapon.instance()
@@ -32,6 +33,7 @@ func _ready():
 
 #Note touch screen control may be buggy after this refactor
 func _physics_process(delta):
+	#_check_for_grabbed()
 	current_weapon.set_x_speed(current_speed.x)
 	if current_weapon.is_grappled():
 		if just_grappled:
@@ -54,11 +56,10 @@ func _physics_process(delta):
 
 	if is_on_floor():
 		current_weapon.refill_ammo()
-
 func move():
-
 	var friction = false
-	current_speed += gravity
+	if !grabbed:
+		current_speed += gravity
 	current_speed = move_and_slide(current_speed, UP)
 
 	if Input.is_action_pressed("right") or touch_right:
@@ -68,7 +69,8 @@ func move():
 		current_speed.x = max(current_speed.x - acceleration, -max_speed)
 		direction = -1
 	else:
-		friction = true
+		if !grabbed:
+			friction = true
 	
 	if (Input.is_action_just_pressed("action") or touch_action):
 		touch_action = false
@@ -87,6 +89,16 @@ func move():
 	
 #So this was in grapple cool down time out for some reason
 #touch_action = false
+
+func _check_for_grabbed():
+	var areas = $HurtBox.get_overlapping_areas()
+	var result = []
+	for area in areas:
+		print(area.name)
+		if area.is_in_group("detached_hook"):
+			result.append(area)
+	if result.size() == 0:
+		grabbed = false
 
 func add_health(amt):
 	health += amt
@@ -137,7 +149,9 @@ func _on_HurtBox_area_entered(area):
 	if area.is_in_group("WeaponPickups"):
 		switch_weapon(area.get_weapon_path())
 		area.queue_free()
-
+	if area.is_in_group("detached_hook"):
+		grabbed = true
+		current_speed = area.get_boost_vector()
 func switch_weapon(path):
 	current_weapon.queue_free()
 	current_weapon = load(path).instance()
@@ -145,3 +159,10 @@ func switch_weapon(path):
 
 func get_ammo():
 	return current_weapon.get_ammo()
+
+func detached_hook_boost(val):
+	current_speed += val
+
+func _on_HurtBox_area_exited(area):
+	if area.is_in_group("detached_hook"):
+		grabbed = false

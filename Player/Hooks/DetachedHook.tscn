@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Player/Hooks/DetachedHook.gd" type="Script" id=1]
+[ext_resource path="res://Player/default_square.png" type="Texture" id=2]
+[ext_resource path="res://Player/Hooks/Area2D.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 68, 32 )
+
+[node name="DetachedHook" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="." groups=[
+"detached_hook",
+]]
+scale = Vector2( 0.05, 1 )
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Area2D" type="Area2D" parent="Sprite" groups=[
+"detached_hook",
+]]
+position = Vector2( -8, 0 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
+position = Vector2( 40, 32 )
+shape = SubResource( 1 )
+
