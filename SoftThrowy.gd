@@ -34,3 +34,6 @@ func hit():
 func _on_ThrowTimer_timeout():
 	$ThrowTimer.stop()
 	throw = true
+
+func grapple_hit():
+	hit()

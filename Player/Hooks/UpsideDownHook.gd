@@ -61,6 +61,7 @@ func _rays_colliding():
 	for ray in rays:
 		if ray.is_colliding():
 			if ray.get_collider().is_in_group("enemies"):
+				print("plox")
 				ray.get_collider().grapple_hit()
 			return true
 	return false

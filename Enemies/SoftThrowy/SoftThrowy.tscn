@@ -6,72 +6,38 @@
 [ext_resource path="res://Enemies/explosion_temp.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 32, 64 )
 
 [sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 32, 64 )
 
-[node name="SoftThrowy" type="KinematicBody2D" index="0"]
-
-input_pickable = false
+[node name="SoftThrowy" type="KinematicBody2D" groups=[
+"soft",
+"enemies",
+]]
 collision_layer = 4
-collision_mask = 1
-collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision" ]
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
-
+[node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Visibility" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="HurtBox" type="Area2D" parent="." index="2"]
+[node name="HurtBox" type="Area2D" parent="."]
 
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource( 2 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explosion_anim = ExtResource( 3 )
-blend_times = [  ]
 
-[node name="ExplosionSprite" type="Sprite" parent="." index="4"]
-
+[node name="ExplosionSprite" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 4 )
 
-[node name="ThrowTimer" type="Timer" parent="." index="5"]
-
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
+[node name="ThrowTimer" type="Timer" parent="."]
 
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
-
 [connection signal="timeout" from="ThrowTimer" to="." method="_on_ThrowTimer_timeout"]
-
-

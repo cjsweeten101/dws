@@ -38,3 +38,6 @@ func _on_HurtBox_body_entered(body):
 func hit():
 	current_speed = Vector2(0,0)
 	$AnimationPlayer.play("explosion_anim")
+
+func grapple_hit():
+	hit()
