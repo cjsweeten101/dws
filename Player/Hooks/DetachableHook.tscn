@@ -39,7 +39,7 @@ centered = false
 wait_time = 0.1
 
 [node name="GrappleCoolDown" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 
 [connection signal="timeout" from="MissDisplay" to="." method="_on_MissDisplay_timeout"]
 [connection signal="timeout" from="GrappleCoolDown" to="." method="_on_GrappleCoolDown_timeout"]

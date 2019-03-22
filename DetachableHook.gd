@@ -11,12 +11,16 @@ var grapple_cooled_down = true
 var reel_first_pass = true
 var grapple_length = 0
 var elasticity = .10
-var grapple_boost = Vector2(1.3,1.5)
+var grapple_boost = Vector2(1.4,1.8)
 var x_speed
 export var max_ammo = 10
 var ammo = 10
-var hook_name = "basic"
+var hook_name = "detachable_hook"
 var preloaded_hook = preload("res://Player/Hooks/DetachedHook.tscn")
+
+
+func set_grappled(val):
+	grappled = val
 
 func set_x_speed(speed):
 	x_speed = speed
@@ -28,15 +32,7 @@ func _physics_process(delta):
 		_check_for_break()
 
 func set_aim_rotation():
-	if grappled:
-		just_released = true
-		$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
-	else:
-		if just_released:
-				$GrappleCast.rotation_degrees = 180 + x_speed/max_speed*(45)
-				just_released = false
-		else:
-			$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + x_speed/max_speed*(45), 0.2)
+		$GrappleCast.rotation_degrees = lerp($GrappleCast.rotation_degrees, 180 + x_speed/max_speed*(45), 0.2)
 
 func fire():
 	if !grappled and grapple_cooled_down and ammo > 0:
@@ -45,6 +41,9 @@ func fire():
 			var new_line = preloaded_hook.instance()
 			get_parent().get_parent().add_child(new_line)
 			new_line.set_polyline(_get_ray_collision_point(), global_position, $GrappleCast.rotation)
+			if $GrappleCoolDown.is_stopped():
+				grapple_cooled_down = false
+				$GrappleCoolDown.start()
 			#grappled = true
 			#grapple_point = _get_ray_collision_point()
 			#grapple_points = [grapple_point]

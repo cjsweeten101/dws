@@ -42,6 +42,8 @@ func _physics_process(delta):
 			just_rel = true
 		if current_weapon.hook_name == "zipline":
 			current_speed = current_weapon.get_reel_speed()
+		elif current_weapon.hook_name == "detachable_hook":
+			pass
 		else:
 			#Accelration, reel_speed is a func, of speed.  May want to switch to constant speed?
 			current_speed += current_weapon.get_reel_speed()
@@ -165,4 +167,5 @@ func detached_hook_boost(val):
 
 func _on_HurtBox_area_exited(area):
 	if area.is_in_group("detached_hook"):
+		current_speed *= current_weapon.get_grapple_boost()
 		grabbed = false
