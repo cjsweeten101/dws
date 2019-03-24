@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Levels/TestingLevel.gd" type="Script" id=1]
 [ext_resource path="res://Tilesets/black_walls.tres" type="TileSet" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Levels/WeaponPickups/MultipleHooksPickuo.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Levels/WeaponPickups/ForwardHookPickup.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Levels/WeaponPickups/UpsideDownPickup.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Levels/WeaponPickups/ProjectileHookPickup.tscn" type="PackedScene" id=15]
 
 [node name="TestingLevel" type="Node2D"]
 script = ExtResource( 1 )
@@ -122,5 +123,8 @@ position = Vector2( 400, 915 )
 
 [node name="UpsideDownPickup" parent="." instance=ExtResource( 14 )]
 position = Vector2( 485, 921 )
+
+[node name="ProjectileHookPickup" parent="." instance=ExtResource( 15 )]
+position = Vector2( 573, 919 )
 
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
