@@ -16,16 +16,26 @@ var x_speed
 export var max_ammo = 10
 var ammo = 10
 var hook_name = ""
+var active_projectile
+var frame_wait = false
 
 func set_x_speed(speed):
 	x_speed = speed
 func _physics_process(delta):
+	_check_for_hit()
 	set_aim_rotation()
 	if grappled:
 		$GrappleCast/AimingSprite.visible = false
 		$GrappleCast/ArrowSprite.global_position = grapple_points[0]
-		_check_for_break()
+		#_check_for_break()
 
+func _check_for_hit():
+	if active_projectile and active_projectile.stuck and grapple_point == null:
+		grappled = true
+		grapple_point = active_projectile.global_position
+		grapple_points = [grapple_point]
+		$GrappleCast.rotation_degrees = (grapple_point - global_position).angle()*180/PI - 90
+	
 func set_aim_rotation():
 	if grappled:
 		just_released = true
@@ -40,16 +50,13 @@ func set_aim_rotation():
 func fire():
 	if !grappled and grapple_cooled_down and ammo > 0:
 		ammo -= 1
-		if _rays_colliding():
-			grappled = true
-			grapple_point = _get_ray_collision_point()
-			grapple_points = [grapple_point]
-			grapple_cooled_down = false
-		else:
-			grappled = false
-			grapple_cooled_down = false
-			_draw_miss()
-
+	
+		var projectile = load("res://Player/Hooks/Projectile.tscn").instance()
+		get_parent().get_parent().add_child(projectile)
+		projectile.set_direction($GrappleCast.rotation)
+		projectile.set_position(global_position)
+		active_projectile = projectile
+		
 func _get_ray_collision_point():
 	var points = []
 	for ray in rays:
@@ -66,6 +73,7 @@ func _rays_colliding():
 	return false
 
 func release():
+	active_projectile = null
 	$GrappleCast/AimingSprite.visible = true
 	grapple_cooled_down = false
 	grappled = false
@@ -83,7 +91,7 @@ func is_grappled():
 func get_reel_speed():
 	grapple_point = grapple_points[grapple_points.size()-1]
 	var grapple_vector = (grapple_point - global_position)
-	if grapple_vector.length() > grapple_length+5 and !reel_first_pass:
+	if grapple_vector.length() > grapple_length+15 and !reel_first_pass:
 		release()
 		return Vector2(0,0)
 	if reel_first_pass:
