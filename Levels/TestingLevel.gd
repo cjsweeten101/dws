@@ -3,15 +3,14 @@ extends Node2D
 
 var game_over = false
 onready var player_health = $Player.get_health()
-var shake_amount = 13
+var shake_amount = 13 
 var action_pressed = false
 var action_released = false
 
 func _ready():
 	pass
-	
-func _process(delta):
 
+func _process(delta):
 	if !game_over:
 		touch_move()
 		$UI/RootUI.ui_ammo($Player.get_ammo())
