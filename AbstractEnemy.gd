@@ -1,9 +1,18 @@
 extends KinematicBody2D
 
-#Ok so, in this class I should have:
-#Functions for attacking, checking if self is soft/spiky
-#Functions for getting hit/destroyed with anim
-#Empty body/collision shape
-#Empty sprite
+var grappled = false
+var current_speed = Vector2(0,0 )
 
-#Thats it I thiiiiiink
+func grapple_hit():
+	$AnimationPlayer.play("shake_anim")
+	grappled = true
+	current_speed = Vector2(0,0)
+
+func explode():
+	$CollisionShape2D.disabled = true
+	$AnimationPlayer.play("explosion_anim")
+
+func _on_HurtBox_body_entered(body):
+	if body.is_in_group("player"):
+		if !grappled and !self.is_in_group("soft"):
+			body.remove_health(1)
