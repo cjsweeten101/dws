@@ -1,13 +1,25 @@
 extends "res://AbstractEnemy.gd"
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var UP = Vector2(0,-1)
+var player_detected = false
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _physics_process(delta):
+	if player_detected:
+		move()
+
+#So if player enters his agro area, dive towards him.  (Sliding on walls or bouncing? Maybe even falling))
+func move():
+	current_speed += Vector2(0,0)
+	current_speed = move_and_slide(current_speed, UP)
+
+func _on_AgroBox_body_entered(body):
+	if body.is_in_group("player"):
+		player_detected = true
+
+
+func _on_AgroBox_body_exited(body):
+	if body.is_in_group("player"):
+		player_detected = false

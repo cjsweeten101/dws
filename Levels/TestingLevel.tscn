@@ -128,6 +128,9 @@ position = Vector2( 485, 921 )
 [node name="ProjectileHookPickup" parent="." instance=ExtResource( 15 )]
 position = Vector2( 573, 919 )
 
-[node name="Divey" parent="." instance=ExtResource( 16 )]
+[node name="Divey2" parent="." groups=[
+"enemies",
+] instance=ExtResource( 16 )]
+position = Vector2( 1179, 249 )
 
 [connection signal="timeout" from="ShakeTimer" to="." method="_on_ShakeTimer_timeout"]
