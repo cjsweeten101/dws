@@ -7,158 +7,83 @@
 [ext_resource path="res://Enemies/shake_anim.tres" type="Animation" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
-
-custom_solver_bias = 0.0
 radius = 44.0454
 
-[sub_resource type="CircleShape2D" id=3]
-
-custom_solver_bias = 0.0
+[sub_resource type="CircleShape2D" id=2]
 radius = 44.0
 
 [node name="SpikyFloaty" type="KinematicBody2D" groups=[
 "enemies",
 ]]
-
-input_pickable = false
 collision_layer = 4
-collision_mask = 1
-collision/safe_margin = 0.08
 script = ExtResource( 1 )
-_sections_unfolded = [ "Collision" ]
 
-[node name="Sprite" type="Sprite" parent="." index="0"]
-
+[node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 1.4, 1.4 )
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="MoveTimer" type="Timer" parent="." index="2"]
+[node name="MoveTimer" type="Timer" parent="."]
 
-process_mode = 1
-wait_time = 1.0
-one_shot = false
-autostart = false
-
-[node name="PauseTimer" type="Timer" parent="." index="3"]
-
-process_mode = 1
+[node name="PauseTimer" type="Timer" parent="."]
 wait_time = 0.5
-one_shot = false
-autostart = false
 
-[node name="ExplosionSprite" type="Sprite" parent="." index="4"]
-
+[node name="ExplosionSprite" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
-
-root_node = NodePath("..")
-autoplay = ""
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/explosion_anim = ExtResource( 4 )
 anims/shake_anim = ExtResource( 5 )
-blend_times = [  ]
 
-[node name="HurtBox" type="Area2D" parent="." index="6"]
+[node name="HurtBox" type="Area2D" parent="."]
 
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-_sections_unfolded = [ "Collision" ]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource( 2 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox" index="0"]
-
-shape = SubResource( 3 )
-
-[node name="RayCast2D" type="RayCast2D" parent="." index="7"]
-
+[node name="RayCast2D" type="RayCast2D" parent="."]
 editor/display_folded = true
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 200 )
-collision_mask = 1
 
-[node name="RayCast2D" type="RayCast2D" parent="RayCast2D" index="0"]
-
+[node name="RayCast2D" type="RayCast2D" parent="RayCast2D"]
 rotation = 0.785398
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 150 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D2" type="RayCast2D" parent="RayCast2D" index="1"]
-
+[node name="RayCast2D2" type="RayCast2D" parent="RayCast2D"]
 rotation = 1.5708
 enabled = true
 exclude_parent = false
 cast_to = Vector2( 0, 150 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D3" type="RayCast2D" parent="RayCast2D" index="2"]
-
+[node name="RayCast2D3" type="RayCast2D" parent="RayCast2D"]
 rotation = 2.35619
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 125 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D4" type="RayCast2D" parent="RayCast2D" index="3"]
-
+[node name="RayCast2D4" type="RayCast2D" parent="RayCast2D"]
 rotation = 3.14159
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 125 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D5" type="RayCast2D" parent="RayCast2D" index="4"]
-
+[node name="RayCast2D5" type="RayCast2D" parent="RayCast2D"]
 rotation = 3.92699
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 125 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D6" type="RayCast2D" parent="RayCast2D" index="5"]
-
+[node name="RayCast2D6" type="RayCast2D" parent="RayCast2D"]
 rotation = 4.71239
 enabled = true
-exclude_parent = true
 cast_to = Vector2( 0, 150 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="RayCast2D7" type="RayCast2D" parent="RayCast2D" index="6"]
-
+[node name="RayCast2D7" type="RayCast2D" parent="RayCast2D"]
 rotation = 5.49779
-enabled = false
-exclude_parent = true
 cast_to = Vector2( 0, 150 )
-collision_mask = 1
-_sections_unfolded = [ "Transform" ]
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
-
 [connection signal="timeout" from="PauseTimer" to="." method="_on_PauseTimer_timeout"]
-
 [connection signal="body_entered" from="HurtBox" to="." method="_on_HurtBox_body_entered"]
-
-
