@@ -7,7 +7,7 @@ var max_speed = Vector2()
 var player_pos = Vector2()
 var moving = false
 var diving_direction = 0
-var dive_speed = Vector2(250,250)
+var dive_speed = Vector2(300,400)
 var moving_up = false
 
 func _ready():
@@ -21,11 +21,16 @@ func _physics_process(delta):
 #And Keep moving, until movement is done (even if player leaves area)
 func move():
 	moving = true
-	if player_pos.y - global_position.y < 100 or moving_up:
+	if diving_direction == 0:
+		diving_direction = sign((player_pos.x - global_position.x))
+		current_speed = dive_speed
+		if diving_direction == -1:
+			current_speed.x *= -1
+	if player_pos.y - global_position.y < 10 or moving_up:
 		moving_up = true 
-		current_speed = move_and_slide(dive_speed*Vector2(1,-1))
+		move_and_slide(current_speed*Vector2(1,-1))
 	else:
-		current_speed = move_and_slide(dive_speed)
+		move_and_slide(current_speed)
 
 func _on_AgroBox_body_entered(body):
 	if body.is_in_group("player"):
@@ -39,3 +44,4 @@ func _on_AgroBox_body_exited(body):
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("tiles") and moving_up:
 		moving = false
+		diving_direction = 0
